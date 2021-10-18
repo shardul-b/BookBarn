@@ -1,0 +1,230 @@
+*{
+    box-sizing: border-box;
+    outline: none;
+}
+body {
+    margin:0;
+    font-family:Arial;
+}
+a{
+  text-decoration: none;
+  color:#FFF;
+}
+ul{
+  list-style-type: none;
+}
+img{
+  max-width: 100%;
+}
+span{
+  display: block;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.flex-space{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.hide{
+    display: none;
+}
+
+/*Advertisment Part*/
+.advert-box{
+  width:100%;
+}
+.left-arrow-box,.right-arrow-box{
+    position: absolute;
+    width:5%;
+    /*background-color: yellow;*/
+    justify-content: center;
+    top:42%;
+}
+.left-arrow-box{
+    left:0.3em;
+}
+.right-arrow-box{
+    right:0.3em;
+    top:40.5%;
+    /*justify-self:flex-end; */
+}
+.left-arrow{
+    background:url('../Assets/Icons/left.svg');
+}
+.advert{
+    margin-top: 0.1em;
+    /*border:1px solid green;*/
+    width:100%;
+    height:70vh;
+}
+.advert-img{
+    flex-shrink: 0;
+    width:100%;
+    height:70vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.right-arrow{
+    background:url('../Assets/Icons/right.svg');
+}
+.arrow{
+    background-size:3em;
+    background-repeat: no-repeat;
+    width: 3em;
+    height:3em;
+    cursor: pointer;
+    filter: invert(100%);
+}
+/*Card*/
+.featured{
+  overflow-x: auto;
+}
+.card{
+  border:1px solid rgba(0,0,0,0.2);
+  max-width:18em;
+  /*min-height:22em;*/
+  /*height:28em;*/
+  flex-shrink: 0;
+  position: relative;
+}
+.card + .card{
+  margin-left: 1.5em;
+}
+.tag{
+  box-shadow: 3px 5px 10px 0 gray;
+  background-color:rgb(255,0,79);
+  position: absolute; 
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 0 10px 10px 0;
+  padding:0.1em 0.3em 0.1em 0.2em;
+  color:#FFF;
+}
+.product-image-container{
+  max-height:17.4em;
+  max-width:17.9em;
+  border-bottom:0.5px solid #DDD;
+}
+.details .container{
+  /*text-align: center;*/
+  line-height: 1.5em;
+  padding:0.5em 0;
+ 
+  /*height:15em;*/
+}
+.cart-button{
+  background-color: #210B61;
+  color:#ECCD04;
+  width: 100%;
+  padding: 0.5em 1em;
+  margin:0.5em 0;
+  /*border:0;*/
+  border-radius: 5px;
+  font-weight: bold;
+}
+.cart-button:hover,.cart-button:active,.cart-button:focus{
+  cursor: pointer;
+  color: #210B61;
+  background-color:#ECCD04;
+}
+.name{
+  font-weight: bold;
+  color:#555;
+  font-size: 0.9rem;
+   /*border:1px solid red;*/
+   height:5em;
+   max-height:6em;
+}
+.cost{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.star-rate,.star{
+  background-image: url('../Assets/Icons/star_rate.svg');
+  background-repeat: no-repeat;
+  background-size: 1.5em;
+  height: 1.5em;
+  width:1.5em;
+}
+.star{
+  background-image: url('../Assets/Icons/star.svg');
+}
+
+@media (max-width: 1150px) {
+  .advert{
+    margin-top: 0.1em;
+    /*border:1px solid green;*/
+    width:100%;
+    height:30vh;
+  }
+  .advert-img{
+    flex-shrink: 0;
+    width:100%;
+    height:30vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .left-arrow-box,.right-arrow-box{
+    position: absolute;
+    width:5%;
+    /*background-color: yellow;*/
+    justify-content: center;
+    top:17.5%;
+  }
+  .left-arrow-box{
+      left:0.3em;
+  }
+  .right-arrow-box{
+      right:0.3em;
+      top:17.3%;
+  }
+  .left-arrow{
+      background:url('../Assets/Icons/left.svg');
+  }
+  .right-arrow{
+    background:url('../Assets/Icons/right.svg');
+  }
+  .arrow{
+    background-size:2em;
+    background-repeat: no-repeat;
+    width: 2em;
+    height:2em;
+    background-position: center;
+    cursor: pointer;
+    /*border:5px solid red;*/
+    filter: invert(100%);
+  }
+}
+@media (max-width: 720px){
+  .card{
+    max-width:15em;
+  }
+  .tag{ 
+    font-size: 0.8rem;
+  }
+  .product-image-container{
+    max-height:14em;
+    max-width:14.5em;
+  }
+  .name{
+    font-size: 0.8rem;
+     /*border:1px solid red;*/
+     height:7em;
+  }
+  .star-rate,.star{
+    background-size: 1.3em;
+  }
+  .cost{
+    font-size: 1rem;
+  }
+}
