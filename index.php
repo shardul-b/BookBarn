@@ -1,3 +1,18 @@
+ <?php 
+ require('./PHP/connect.php');
+        if (isset($_GET['action'])) {
+            echo'<script>
+            location.reload();
+            location.href="./account.php?userid='.$_GET['id'].'"
+            </script>';
+        }else if (isset($_GET['result'])) {
+            echo'<script>
+            location.reload();
+            location.href="./project.php?id='.$_GET['project_id'].'"
+            </script>';
+        }
+
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,15 +70,27 @@
           </div>
         </nav>
 <!-- Advertisement Box -->
+
 <div id="carousel" class="carousel slide carousel-fade " data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
+  <?php
+   $repeat = mysqli_query($connection, $searchquery);
+            if (mysqli_num_rows($repeat) > 0) {
+               // output data of each row
+              while($row = mysqli_fetch_assoc($repeat)) 
+              {
+                <div class="carousel-item active img-fluid ">
+      <img src="./assets/img/Banner1.png" class="d-block w-100" alt="Book-image1" style="max-height:60vh; background-size: cover;">
+    </div>
+  }}
+  ?>
+  <!-- <div class="carousel-inner">
     <!-- Advertisments -->
-    <div class="carousel-item active img-fluid ">
+   <!--  <div class="carousel-item active img-fluid ">
       <img src="./assets/img/Banner1.png" class="d-block w-100" alt="Book-image1" style="max-height:60vh; background-size: cover;">
     </div>
     <div class="carousel-item">
@@ -71,8 +98,8 @@
     </div>
     <div class="carousel-item">
       <img src="./assets/img/Banner3.png" class="d-block w-100" alt="Book-image3" style="max-height:60vh; background-size: cover;">
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> --> -->
   <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>

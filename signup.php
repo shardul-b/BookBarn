@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +11,7 @@
     <title>Create Account</title>
 </head>
 <body>
+ 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="./index.html">BookBarn</a>
@@ -54,7 +58,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="signup-form">
-                <form action="" class="mt-5 border p-4 bg-light shadow">
+                <form class="mt-5 border p-4 bg-light shadow" method="POST">
                     <h4 class="mb-5 text-secondary">Create Your Account</h4>
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -64,19 +68,24 @@
 
                         <div class="mb-3 col-md-6">
                             <label>Last Name<span class="text-danger">*</span></label>
-                            <input type="text" name="Lname" class="form-control" placeholder="Enter Last Name">
+                            <input type="text" name="lname" class="form-control" placeholder="Enter Last Name">
+                        </div>
+                         <div class="mb-3 col-md-12">
+                            <label>Email<span class="text-danger">*</span></label>
+                            <input type="email" name="password" class="form-control" placeholder="Enter Email">
                         </div>
 
                         <div class="mb-3 col-md-12">
                             <label>Password<span class="text-danger">*</span></label>
-                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                            <input type="password" name="email" class="form-control" placeholder="Enter Password">
                         </div>
                         <div class="mb-3 col-md-12">
                             <label>Confirm Password<span class="text-danger">*</span></label>
                             <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
                         </div>
                         <div class="col-md-12">
-                           <button class="btn btn-primary">Signup</button>
+                           <button class="btn btn-primary" name="signup-submit">Signup</button>
+                               
                         </div>
                     </div>
                 </form>
@@ -87,5 +96,46 @@
 </div>
 
     <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+
+      <?php
+        require('PHP/connect.php');
+        
+   
+
+// If the values are posted, insert them into the database.
+ if(isset($_POST['signup-submit']))
+{
+    $firstname = $_POST['fname'];
+    $lastname = $_POST['lname'];
+    $username= $firstname.' '.$lastname;
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $cpassword = $_POST['confirmpassword'];
+    $query = "SELECT 1 FROM customer WHERE email = '$email'";
+    $selectresult = mysqli_query($connection, "SELECT 1 FROM customer WHERE email = '$email'");
+    if(mysqli_num_rows($selectresult)>0)
+    {
+         $msg = 'email already exists';
+
+    }
+    else if($password !== $cpassword){
+           $msg = 'password dont match';
+            echo($msg);
+     }
+    else{
+
+          
+          $query = "INSERT INTO customer (username,email,password) VALUES ('$username', '$email', '$password')";
+          $result = mysqli_query($connection,$query);
+          if($result){
+             $msg = "User Created Successfully.";
+          }else{
+            echo(mysqli_error($connection));
+          }
+    }
+   }
+
+?>
+
 </body>
 </html>

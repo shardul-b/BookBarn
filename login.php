@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    $error='';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+<?php
+        require 'PHP/connect.php';
+        echo"sucess";
+
+?>
+   
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="./index.html">BookBarn</a>
