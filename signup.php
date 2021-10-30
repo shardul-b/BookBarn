@@ -72,12 +72,12 @@
                         </div>
                          <div class="mb-3 col-md-12">
                             <label>Email<span class="text-danger">*</span></label>
-                            <input type="email" name="password" class="form-control" placeholder="Enter Email">
+                            <input type="email" name="email" class="form-control" placeholder="Enter Email">
                         </div>
 
                         <div class="mb-3 col-md-12">
                             <label>Password<span class="text-danger">*</span></label>
-                            <input type="password" name="email" class="form-control" placeholder="Enter Password">
+                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
                         </div>
                         <div class="mb-3 col-md-12">
                             <label>Confirm Password<span class="text-danger">*</span></label>
@@ -118,10 +118,10 @@
          $msg = 'email already exists';
 
     }
-    else if($password !== $cpassword){
-           $msg = 'password dont match';
-            echo($msg);
-     }
+    // else if($password != $cpassword){
+    //        $msg = 'password dont match';
+    //         echo($msg);
+    //  }
     else{
 
           

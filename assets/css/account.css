@@ -1,0 +1,180 @@
+*{
+  box-sizing: border-box;
+}
+body{
+    margin: 0;
+  font-family:Arial;
+}
+
+.top{
+    margin:20px;
+}
+img{
+    max-width: 100%;
+}
+.mid{
+    margin:20px;
+}
+.text-input{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+.flex{
+  display: flex;
+  align-items: center;
+}
+.flex-space{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container{
+  width:95%;
+  margin:0 auto;
+  /*border: 1px solid yellow;*/
+}
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/*input[type=submit] {
+  margin:1em;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+*/
+.container-box {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.Row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.products .container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    /*grid-Row-gap: 1em;*/
+  }
+  .button-style{
+    background-color: #210B61;
+    color:#ECCD04;
+    /*width: 20%;*/
+    padding: 0.5em 1em;
+    margin:1em 1em 1em 0;
+    /*border:0;*/
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  .button-style:hover,.button-style:active,.button-style:focus{
+    cursor: pointer;
+    color: #210B61;
+    background-color:#ECCD04;
+  }
+  /*Card*/
+  .product-card{
+    width:95%;
+    padding:0.5em;
+    /*border:1px solid green;*/
+    margin: 1em 0;
+    font-size:1.2rem;
+    box-shadow: 1px 1px 5px 0.3px darkgray;
+  }
+  .product-image{
+    /*border:1px solid red;*/
+    max-height: 5em;
+    max-width: 5em;
+  }
+  /*Desc Part*/
+  .name{
+    font-weight: bold;
+    font-size:0.9rem;
+    /*border:1px solid blue;*/
+    width:50%;  
+    padding:0 0.3em;
+  }
+  .quantity,.cost{
+    /*border:1px solid green;*/
+    font-size: 1rem;
+    padding:0 1em;
+  }
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 720px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }  
+  .products .container{
+    display: grid;
+    grid-template-columns: 1fr;
+    /*grid-column-gap: 1em;*/
+    /*grid-Row-gap: 1em;*/
+  }
+  .product-card{
+    width:100%;
+    height:5em;
+    padding:0.5em;
+    /*border:1px solid green;*/
+    margin: 1em 0;
+    font-size:1.2rem;
+    box-shadow: 1px 1px 5px 0.3px darkgray;
+  }
+  .product-image{
+    /*border:1px solid red;*/
+    max-height: 3em;
+    width: 4em;
+    max-width:20%;
+  }
+  .product-desc{
+    /*border:1px solid red;*/
+    width:90%;
+  }
+  .name{
+    font-weight: bold;
+    font-size:0.8rem;
+    /*border:1px solid blue;*/
+    width:11em;
+    /*max-width: 10em;  */
+    padding:0 0.3em;
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+  }
+  .quantity,.cost{
+    /*border:1px solid green;*/
+    font-size: 0.9rem;
+    padding:0 0.5em;
+  }
+  
+}
