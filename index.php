@@ -1,3 +1,8 @@
+ <?php 
+ require('./PHP/connect.php');
+  
+      session_start();
+   ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,57 +15,28 @@
             height: 50vh;
         }
     </style> -->
+    <style type="text/css">
+      
+      .card-title{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
+    </style>
 </head>
 <body style="height:100vh">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">BookBarn</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About us</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categories
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="./categories.html">Category-1</a>
-                    </li>
-                    <li><a class="dropdown-item" href="./categories.html">Category-2</a>
-                    </li>
-                    <li><a class="dropdown-item" href="./categories.html">Category-3</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="./Blog/index.html">Blog</a>
-                </li>
-                
-              </ul>
-              <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <a href="./search.html" class="btn btn-outline-success" type="submit" >Search</a>
-              </form>
-              <a href="./login.html" class="btn btn-primary ms-4">
-                  SIGN IN
-              </a>
-            </div>
-          </div>
-        </nav>
+         <?php  
+              require('./PHP/header.php');
+          ?>
 <!-- Advertisement Box -->
+
 <div id="carousel" class="carousel slide carousel-fade " data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
+  
   <div class="carousel-inner">
     <!-- Advertisments -->
     <div class="carousel-item active img-fluid ">
@@ -85,9 +61,10 @@
 <div class="products-section">
     <h2>Featured Books</h2>
     <hr>
+    
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
-            <div class="col-lg-4 d-inline-block my-2">
+            <!-- <div class="col-lg-4 d-inline-block my-2">
                 <div class="card" style="width: 18rem;">
                     <div class="ratio ratio-4x3" style="object-fit: cover;">
                         <img src="https://images-na.ssl-images-amazon.com/images/I/813CNrUAXOS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
@@ -102,30 +79,47 @@
                             <i class="far fa-star" style="color: #ffcc33;"></i>
                       </div>
                       <p class="card-text">&#8377;350</p>
-                      <a href="./book_desc.html" class="btn btn-primary d-block">View Product</a>
+                      <a href="./book_desc.html?id=[]" class="btn btn-primary d-block">View Product</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <?php
+                $sql = "SELECT * FROM books where average_rating>4 ORDER BY original_title LIMIT 10";
+              
+                            if($result = mysqli_query($connection, $sql)){
+                                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                   echo'
             <div class="col-lg-4 d-inline-block">
                 <div class="card " style="width: 18rem;">
                     <div class="ratio ratio-4x3" style="object-fit: cover;">
-                        <img src="https://images-na.ssl-images-amazon.com/images/I/813CNrUAXOS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
+                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
+                      <h5 class="card-title">'.$row["original_title"].'  </h5>
                       <div class="rating">
                         <i class="fas fa-star" style="color: #ffcc33;"></i>
                         <i class="fas fa-star" style="color: #ffcc33;"></i>
                         <i class="fas fa-star" style="color: #ffcc33;"></i>
                         <i class="fas fa-star-half-alt" style="color: #ffcc33;"></i>
                         <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
+                      </div>
+                      <p class="card-text">'.$row["cost"].' </p>
+
+                      <a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary d-block">View Product</a> 
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
+            </div>';
+          }
+        }
+          else{
+            echo"error";
+          }
+
+          ?>
+
+
+            <!-- <div class="col-lg-4 d-inline-block">
                 <div class="card" style="width: 18rem;">
                   <div class="ratio ratio-4x3" style="object-fit: cover;">
                       <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
@@ -183,112 +177,53 @@
                 </div>
             </div>
             <!-- </div>       -->
-        </div>
-    </div>
+        <!-- </div> -->
+    </div> 
+</div> 
 </div>
 <div class="products-section">
+
     <h2>Trending Fiction Books</h2>
     <hr>
+
+
+
+
+
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
-            <div class="col-lg-4 d-inline-block my-2">
-                <div class="card" style="width: 18rem;">
-                    <div class="ratio ratio-4x3" style="object-fit: cover;">
-                        <img src="https://images-na.ssl-images-amazon.com/images/I/813CNrUAXOS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Book Name</h5>
-                        <div class="rating">
-                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                            <i class="far fa-star" style="color: #ffcc33;"></i>
-                      </div>
-                      <p class="card-text">&#8377;350</p>
-                      <a href="./book_desc.html" class="btn btn-primary d-block">View Product</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card " style="width: 18rem;">
-                    <div class="ratio ratio-4x3" style="object-fit: cover;">
-                        <img src="https://images-na.ssl-images-amazon.com/images/I/813CNrUAXOS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star-half-alt" style="color: #ffcc33;"></i>
-                        <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-            <!-- </div>       -->
-        </div>
+          <?php
+                $sql_fiction = "SELECT * FROM books where genre = 'Fiction'";
+              
+                            if($result = mysqli_query($connection, $sql_fiction)){
+                                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                   echo'
+                                            <div class="col-lg-4 d-inline-block my-2">
+                                                <div class="card" style="width: 18rem;">
+                                                    <div class="ratio ratio-4x3" style="object-fit: cover;">
+                                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">'.$row["original_title"].'</h5>
+                                                        <div class="rating">
+                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                                            <i class="far fa-star" style="color: #ffcc33;"></i>
+                                                      </div>
+                                                      <p class="card-text"> '.$row["cost"].' </p>
+                                                      <a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary d-block">View Product</a>
+                                                    </div>
+                                                </div>
+                                            </div>';
+
+}
+}
+?>
     </div>
+</div>
 </div>
 <!-- Footer -->
    <!-- Remove the container if you want to extend the Footer to full width. -->
@@ -397,5 +332,6 @@
     
     <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="./JS/script.js"></script> -->
+  
 </body>
 </html>

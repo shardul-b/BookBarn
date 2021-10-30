@@ -12,72 +12,69 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">BookBarn</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About us</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categories
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="./categories.html">Category-1</a>
-                </li>
-                <li><a class="dropdown-item" href="./categories.html">Category-2</a>
-                </li>
-                <li><a class="dropdown-item" href="./categories.html">Category-3</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./Blog/index.html">Blog</a>
-            </li>
-            
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <a href="./search.html" class="btn btn-outline-success" type="submit" >Search</a>
-          </form>
-          <a href="./login.html" class="btn btn-primary ms-4">
-              SIGN IN
-          </a>
-        </div>
-      </div>
-    </nav>
+<?php 
+
+   include("./PHP/header.php");
+         
+    include('./PHP/connect.php');
+
+
+?>
+<?php 
+  
+                $sql = "SELECT * FROM books where book_id=".$_GET['id']."";
+              
+                            if($result = mysqli_query($connection, $sql)){
+                                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                              $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                               
+    }else{
+      //query fails
+      echo("Yo");
+    }
+
+?>
     <div class="container">
         <div class="row">
             <div class="col-sm-5">
                 <div>
                     <!-- <div class="col-md-12 col-lg-5"> -->
                         <!-- <a href="#"></a> -->
-                        <img src="./assets/img/b1.jpeg" class="py-4 px-4">
+
+    
+                        <img src="<?php
+                        echo $row['image_url'];
+                      ?>" class="image">
                     <!-- </div> -->
                 </div>
                 <button class="btn-lg btn-primary">Add to Cart</button>
                 <button class="btn-lg btn-success ms-3">Buy Now</button>
             </div>
             <div class="col mt-5">
-                <h4>Life's Amazing Secrets (English,Das Gaur Gopal)</h4>
-                <h5>Rs. 320</h5>
+              <h4>  
+         <?php 
+        echo $row['original_title'];
+      
+        ?>
+      </h4>
+               <h5> &#8377; 
+         <?php echo  $row['cost'];?>
+      </h5>
+               
                 <p style="color: rgb(1,8,11);">Inclusive of all tax</p>
                 <input type="number" min="0" max="5">
-                    <button class="btn btn-primary" type="button" style="margin: 35px;font-size: px;background: #ECCD04;color: #210B61;">Add to cart</button>
-                    <h3>Book Details:</h3>
-                    <p style="color: rgb(5,19,27);">Life Amazing Secrets. How to find balance and purpose in your life is an engaging philosophical book that deals with deep and meaningful conversations on life between Gaur Gopal Das himself and his friend Harry</p>
+                    <button class="btn btn-primary" type="button" style="margin: 35px;background: #ECCD04;color: #210B61;">Add to cart</button>
+                    <h3>Book Details</h3>
+                    <p style="color: rgb(5,19,27);"><?php 
+                    $text=$row['book_details'];
+                    $text=preg_replace('/,/',"<br/>",$text,20);
+                    echo $text;
+              ?></p>
             </div>
         </div>
         <h4 style="color: rgb(33, 37, 41);" class="mt-2">Description</h4>
-        <p>Life Amazing Secrets. How to find balance and purpose in your life is an engaging philosophical book that deals with deep and meaningful conversations on life between Gaur Gopal Das himself and his friend Harry</p>
+        <p><?php echo $row['description'];
+              ?></p>
     </div>
     
     <!-- Footer -->
