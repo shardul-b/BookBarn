@@ -9,6 +9,11 @@
     <link href="./bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
     <title>Create Account</title>
+    <style>
+        .signup-form{
+            background-color: #f5f5f5;
+        } 
+    </style>
 </head>
 <body>
  
@@ -57,8 +62,8 @@
   <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="signup-form">
-                <form class="mt-5 border p-4 bg-light shadow" method="POST">
+            <div class="signup-form shadow">
+                <form class="mt-5 border p-4 " method="POST">
                     <h4 class="mb-5 text-secondary">Create Your Account</h4>
                     <div class="row">
                         <div class="mb-3 col-md-6">
@@ -89,7 +94,7 @@
                         </div>
                     </div>
                 </form>
-                <p class="text-center mt-3 text-secondary">If you have account, Please <a href="login.html">Login Now</a></p>
+                <p class="text-center mt-3 text-secondary">If you have account, Please <a href="login.php">Login Now</a></p>
             </div>
         </div>
     </div>

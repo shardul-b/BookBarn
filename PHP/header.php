@@ -14,7 +14,10 @@ echo'
                 <li class="nav-item">
                   <a class="nav-link" href="#">About us</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item">
+                  <a class="nav-link" href="./categories.php">Categories</a>
+                </li>
+                <!--<li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Categories
                   </a>
@@ -26,34 +29,29 @@ echo'
                     <li><a class="dropdown-item" href="./categories.php">Category-3</a>
                     </li>
                   </ul>
-                </li>
+                </li>-->
                 <li class="nav-item">
                   <a class="nav-link" href="./Blog/index.php">Blog</a>
                 </li>
                 
               </ul>
-              <form class="d-flex">
+              <div class="d-flex">
                 <input class="form-control me-2" id="search-value" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success"  id="search-button">Search</button>
-              </form>'
+              </div>'
               .(!(isset($_SESSION["userid"]))?'
               <a href="./login.php" class="btn btn-primary ms-4">
                   SIGN IN
               </a>':'
               <a href="./account.php" class="btn btn-primary ms-4">
                   My Account
-              </a>').'
+              </a>
+              <a href="./cart.php" class="btn btn-success ms-3">
+                  My Cart
+              </a>
+              ').'
             </div>
           </div>
         </nav>';
  ?>
-
- <script>
-   let search_btn=document.getElementById('search-button');
-   search_btn.addEventListener('click',()=>{
-      let search_value=document.getElementById('search-value');
-      //alert("Rohana: "+search_value.value);
-      location.href=`mailto:rohanasurvase@gmail.com`;
-   });
- </script>
- <!-- To wo jo dataset hai na usme description or hd images hai har prod ka which is amazing right??? acha chod -->
+<script src="./JS/search.js"></script>

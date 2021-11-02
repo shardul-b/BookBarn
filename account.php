@@ -34,7 +34,7 @@
                                 //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                                     echo'
-                                        <div class="Row">
+                                        <div class="row">
                                             <div class="col-25">
                                                 <label for="uname">User Name:</label>
                                             </div>
@@ -43,7 +43,7 @@
                                             </div>
                                         </div>
                                     
-                                        <div class="Row">
+                                        <div class="row">
                                              <div class="col-25">
                                                 <label for="email">E-mail Address:</label>
                                             </div>
@@ -51,15 +51,15 @@
                                                 <input type="text" class="text-input" name="email" id="email" value="'.$row["email"].'">
                                             </div>
                                         </div>
-                                        <div class="Row">
+                                        <div class="row">
                                              <div class="col-25">
-                                                <label for="phone">PHONE:</label>
+                                                <label for="phone">Phone:</label>
                                             </div>
                                             <div class="col-75">
                                                 <input type="tel" class="text-input" name="phone" id="phone" value="'.$row["phone"].'">
                                             </div>
                                         </div>
-                                        <div class="Row">
+                                        <div class="row">
                                             <div class="col-25">
                                                 <label for="address">Address:</label>
                                             </div>
@@ -73,9 +73,9 @@
                                         </div>
                                         <div class="Row">
                                             <form mehod="post">
-                                                <button name="edit" class="button-style">EDIT</button>
+                                                <button name="edit" class="btn btn-outline-success">EDIT</button>
                                                 </form>
-                                                <button name="logout" class="logout button-style">LOGOUT</button>
+                                                <button name="logout" class="btn btn-outline-danger">LOGOUT</button>
                                         </div>
                                     ';
                                 }
@@ -89,57 +89,49 @@
     <div class="mid">
         <!-- <div class="container-box"> -->
             <!-- Order DB -->
-            <h2>Order Details</h2>
-            <?php
-
-            ?>
-            <div class="products">
-        <div class="container">
-            <!-- First -->
-            <?php
-                if(!isset($_SESSION['userid'])){
-                    echo "<script> location.href='./login.php'; </script>";
-                    exit;
-                }
-                $sql = "SELECT * FROM `order` WHERE Cust_id = 8";
-                $result=mysqli_query($connection,$sql) or die('Invalid query:');
-                while($row = mysqli_fetch_assoc($result)){
-                    //echo $row['product_id'];
-                    $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
-                    $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
-                    $row2 = mysqli_fetch_assoc($result2);
-                    // while($row2 = mysqli_fetch_assoc($result2)){
-                        echo'
-                            <div class="product-card flex-space">
-                                <div class="product-image">
-                                    <img src="'.$row2["image_url"].'" alt="Camera" class="image">
-                                </div>
-                                <div class="product-desc flex">
-                                    <span class="name">
-                                        '.$row2["original_title"].'
-                                    </span>
-                                    <span class="quantity">x'.$row["quantity"].'</span>
-                                    <span class="cost">&#8377;'.$row["quantity"]*$row2["cost"].'</span>
-
-                                </div>
-                                <span class="remove-icon flex" title="Remove from cart"></span>
-                            </div>
-                            ';
-                    // }
-                }
-                
-                /**/
-            ?>
-
+            <h2 class="ms-3">Order Details</h2>
             
-            <!-- <div class="Row">
-                <div class="col-25">
-
+            <div class="products">
+                
+                <div class="container">
+                    <!-- First -->
+                    <?php
+                        if(!isset($_SESSION['userid'])){
+                            echo "<script> location.href='./login.php'; </script>";
+                            exit;
+                        }
+                        $sql = "SELECT * FROM `order` WHERE Cust_id = 8";
+                        $result=mysqli_query($connection,$sql) or die('Invalid query:');
+                        while($row = mysqli_fetch_assoc($result)){
+                            //echo $row['product_id'];
+                            $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
+                            $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
+                            $row2 = mysqli_fetch_assoc($result2);
+                            // while($row2 = mysqli_fetch_assoc($result2)){
+                                echo'
+                                <div class="row shadow my-2">
+                                    <div class="col-md-2 col-4 d-flex align-items-center justify-content-end">
+                                        <img src="'.$row2["image_url"].'" alt="Image" style=" max-height:6.2em;">
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        <div class="card border-0">
+                                          <!-- <h5 class="card-header">User Name</h5> <--></-->
+                                          <div class="card-body">
+                                            <span class="card-title">'.$row2["original_title"].'</span>
+                                            <p>x'.$row["quantity"].'</p>
+                                            <p>&#8377;'.$row["quantity"]*$row2["cost"].'</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ';
+                            // }
+                        }
+                    ?>
                 </div>
-            </div> -->
-        </div>
+            </div>
     </div>
-</div>
+    
     <?php
         if(isset($_POST['edit'])){
             $UserName=$_POST["username"];

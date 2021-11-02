@@ -3,7 +3,6 @@
 }
 body{
     margin: 0;
-  font-family:Arial;
 }
 
 .top{
@@ -86,27 +85,10 @@ input[type=submit]:hover {
     grid-column-gap: 1em;
     /*grid-Row-gap: 1em;*/
   }
-  .button-style{
-    background-color: #210B61;
-    color:#ECCD04;
-    /*width: 20%;*/
-    padding: 0.5em 1em;
-    margin:1em 1em 1em 0;
-    /*border:0;*/
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  .button-style:hover,.button-style:active,.button-style:focus{
-    cursor: pointer;
-    color: #210B61;
-    background-color:#ECCD04;
-  }
   /*Card*/
   .product-card{
     width:95%;
     padding:0.5em;
-    /*border:1px solid green;*/
-    margin: 1em 0;
     font-size:1.2rem;
     box-shadow: 1px 1px 5px 0.3px darkgray;
   }

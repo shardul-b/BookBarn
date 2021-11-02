@@ -10,6 +10,11 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .login-form{
+            background-color: #f5f5f5;
+        } 
+    </style>
 </head>
 <body>
         <?php
@@ -18,7 +23,7 @@ session_start();
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                <div class="login-form mt-4 p-4 bg-light shadow ">
+                <div class="login-form mt-4 p-4 shadow ">
                     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST" class="row g-3">
                         <h4>Login</h4>
                         <div class="col-12">
@@ -41,7 +46,7 @@ session_start();
                     </form>
                     <hr class="mt-4">
                     <div class="col-12">
-                        <p class="text-center mb-0">Have not account yet? <a href="signup.html">Signup</a></p>
+                        <p class="text-center mb-0">Have not account yet? <a href="signup.php">Signup</a></p>
                     </div>
                 </div>
             </div>
