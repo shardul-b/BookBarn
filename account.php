@@ -29,7 +29,7 @@
                 if(!isset($_SESSION['userid'])){
                     header('Location:./login.php');
                 }
-                    $sql = "SELECT * FROM customer WHERE  userid= 8";
+                    $sql = "SELECT * FROM customer WHERE  userid="+.$_SESSION['userid'];
                             if($result = mysqli_query($connection, $sql)){
                                 //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

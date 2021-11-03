@@ -27,24 +27,24 @@
 <!-- Advertisement Box -->
 
 <div id="carousel" class="carousel slide carousel-fade " data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
   
-  <div class="carousel-inner">
-    <!-- Advertisments -->
-    <div class="carousel-item active img-fluid ">
-      <img src="./assets/img/Banner1.png" class="d-block w-100" alt="Book-image1" style="max-height:60vh; background-size: cover;">
+    <div class="carousel-inner">
+        <!-- Advertisments -->
+        <div class="carousel-item active img-fluid ">
+          <img src="./assets/img/Banner1.png" class="d-block w-100" alt="Book-image1" style="max-height:60vh; background-size: cover;">
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/img/Banner2.png" class="d-block w-100" alt="Book-image2" style="max-height:60vh; background-size: cover;">
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/img/Banner3.png" class="d-block w-100" alt="Book-image3" style="max-height:60vh; background-size: cover;">
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="./assets/img/Banner2.png" class="d-block w-100" alt="Book-image2" style="max-height:60vh; background-size: cover;">
-    </div>
-    <div class="carousel-item">
-      <img src="./assets/img/Banner3.png" class="d-block w-100" alt="Book-image3" style="max-height:60vh; background-size: cover;">
-    </div>
-  </div>
   <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -56,8 +56,7 @@
 </div>
 <div class="products-section">
     <h2 class="ms-3">Featured Books</h2>
-    <hr>
-    
+    <hr> 
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
             <!-- <div class="col-lg-4 d-inline-block my-2">
@@ -81,151 +80,93 @@
             </div> -->
             <?php
                 $sql = "SELECT * FROM books where average_rating>4 ORDER BY original_title LIMIT 10";
-              
-                            if($result = mysqli_query($connection, $sql)){
-                                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
-                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                   echo'
-            <div class="col-lg-4 d-inline-block">
-                <div class="card " style="width: 18rem;">
-                    <div class="ratio ratio-4x3" style="object-fit: cover;">
-                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title">'.$row["original_title"].'  </h5>
-                      <div class="rating">
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                        <i class="fas fa-star-half-alt" style="color: #ffcc33;"></i>
-                        <i class="far fa-star" style="color: #ffcc33;"></i>
-                      </div>
-                      <p class="card-text">&#8377;'.$row["cost"].' </p>
-
-                      <a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary d-block">View Product</a> 
-                    </div>
-                </div>
-            </div>';
-          }
-        }
-          else{
-            echo"error";
-          }
-
-          ?>
-
-
-            <!-- <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-inline-block">
-                <div class="card" style="width: 18rem;">
-                  <div class="ratio ratio-4x3" style="object-fit: cover;">
-                      <img src="https://images-na.ssl-images-amazon.com/images/I/71DeS+Fk6ZS.jpg" class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title">Book Name</h5>
-                      <div class="rating">
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="fas fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                          <i class="far fa-star" style="color: #ffcc33;"></i>
-                    </div>
-                    <p class="card-text">&#8377;350</p>
-                    <a href="#" class="btn btn-primary d-block">View Product</a>
-                  </div>
-                </div>
-            </div>
-             </div>       -->
-        <!-- </div> -->
+                if($result = mysqli_query($connection, $sql)){
+                    //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                       echo'
+                        <div class="col-lg-4 d-inline-block">
+                            <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
+                                <div class="card " style="width: 18rem;">
+                                    <div class="ratio ratio-4x3" style="object-fit: cover;">
+                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"  alt="image">
+                                    </div>
+                                    <div class="card-body">
+                                      <h5 class="card-title">'.$row["original_title"].'  </h5>
+                                      <div class="rating">
+                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                        <i class="fas fa-star-half-alt" style="color: #ffcc33;"></i>
+                                        <i class="far fa-star" style="color: #ffcc33;"></i>
+                                      </div>
+                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
+                                      <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a> 
+                                    </div>
+                                </div>
+                            </a>    
+                        </div>';
+                    }
+                }else{
+                    echo"error";
+                }
+            ?>
     </div> 
 </div> 
 </div>
 <div class="products-section">
-
     <h2 class="ms-3">Trending Fiction Books</h2>
     <hr>
-
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
-          <?php
+            <?php
                 $sql_fiction = "SELECT * FROM books where genre = 'Fiction'";
               
-                            if($result = mysqli_query($connection, $sql_fiction)){
-                                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
-                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                   echo'
-                                            <div class="col-lg-4 d-inline-block my-2">
-                                                <div class="card" style="width: 18rem;">
-                                                    <div class="ratio ratio-4x3" style="object-fit: cover;">
-                                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">'.$row["original_title"].'</h5>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                                            <i class="far fa-star" style="color: #ffcc33;"></i>
-                                                      </div>
-                                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
-                                                      <a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary d-block">View Product</a>
-                                                    </div>
-                                                </div>
-                                            </div>';
+                if($result = mysqli_query($connection, $sql_fiction)){
+                    //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                       echo'
+                        <div class="col-lg-4 d-inline-block my-2">
+                            <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="ratio ratio-4x3" style="object-fit: cover;">
+                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">'.$row["original_title"].'</h5>
+                                        <div class="rating">
+                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                            <i class="far fa-star" style="color: #ffcc33;"></i>
+                                      </div>
+                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
+                                      <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>';
 
-}
-}
-?>
+                    }
+                }
+            ?>
+        </div>
     </div>
 </div>
-</div>
-<!-- Footer -->
-   <!-- Remove the container if you want to extend the Footer to full width. -->
-   
-   <!-- End of .container -->
-    <?php 
-      include './PHP/footer.php';
-     ?>
-    
-    <!-- <script src="./JS/script.js"></script> -->
-  
+<?php 
+  include './PHP/footer.php';
+ ?>
+
+<!-- <script src="./JS/script.js"></script> -->
+<?php
+    if(isset($_GET['id'])){
+        if(!isset($_SESSION['userid'])){
+            echo "<script> location.href='./login.php'; </script>";
+        }else{
+            $SQL = "INSERT INTO cart (cust_id,book_id,quantity) VALUES ('". $_SESSION['userid'] ."','". $_GET['id'] ."',1)";  
+            $result = mysqli_query($connection,$SQL) or die('Invalid query:'.mysqli_error($connection));
+        }
+    }
+?>  
 </body>
 </html>
