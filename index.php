@@ -79,10 +79,56 @@
                 </div>
             </div> -->
             <?php
+                $rating='';
                 $sql = "SELECT * FROM books where average_rating>4 ORDER BY original_title LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                        switch (intval($row['average_rating'])){
+                            case 1:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 2:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 3:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 4:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 5:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            default:
+                                $rating='';
+                                break;
+                        }
                        echo'
                         <div class="col-lg-4 d-inline-block">
                             <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
@@ -93,11 +139,7 @@
                                     <div class="card-body">
                                       <h5 class="card-title">'.$row["original_title"].'  </h5>
                                       <div class="rating">
-                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                        <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                        <i class="fas fa-star-half-alt" style="color: #ffcc33;"></i>
-                                        <i class="far fa-star" style="color: #ffcc33;"></i>
+                                         '.$rating.'
                                       </div>
                                       <p class="card-text">&#8377;'.$row["cost"].' </p>
                                       <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a> 
@@ -122,8 +164,54 @@
                 $sql_fiction = "SELECT * FROM books where genre = 'Fiction'";
               
                 if($result = mysqli_query($connection, $sql_fiction)){
+                    $rating='';
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                       switch (intval($row['average_rating'])){
+                            case 1:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 2:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 3:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 4:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 5:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            default:
+                                $rating='';
+                                break;
+                        }
                        echo'
                         <div class="col-lg-4 d-inline-block my-2">
                             <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
@@ -134,11 +222,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">'.$row["original_title"].'</h5>
                                         <div class="rating">
-                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                            <i class="fas fa-star" style="color: #ffcc33;"></i>
-                                            <i class="far fa-star" style="color: #ffcc33;"></i>
+                                         '.$rating.'
                                       </div>
                                       <p class="card-text">&#8377;'.$row["cost"].' </p>
                                       <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a>

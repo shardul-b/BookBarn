@@ -27,8 +27,54 @@
 ?>
 <?php 
     $sql = "SELECT * FROM books where book_id=".$_GET['id']."";
+    $rating='';
     if($result = mysqli_query($connection, $sql)){
       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        switch (intval($row['average_rating'])){
+            case 1:
+                $rating='
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                break;
+            case 2:
+                $rating='
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                break;
+            case 3:
+                $rating='
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                break;
+            case 4:
+                $rating='
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                break;
+            case 5:
+                $rating='
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                <i class="fas fa-star" style="color: #ffcc33;"></i>';
+                break;
+            default:
+                $rating='';
+                break;
+        }
     }else{
       //query fails
       echo("Yo");
@@ -61,6 +107,9 @@
                 <?php echo  $row['cost'];?>
             </h5>   
             <p>Inclusive of all tax</p>
+            <div class="rating my-2">
+                <?php echo $rating; ?>
+            </div>
             <form method="post">
                 <div class="col-8">
                 <div class="input-group">
