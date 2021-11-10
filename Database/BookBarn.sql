@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2021 at 05:12 PM
+-- Generation Time: Nov 10, 2021 at 07:31 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -132,7 +132,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`username`, `email`, `password`, `phone`, `address`, `userid`) VALUES
-('shardul birje', 'shardul@gmail.com', 'shardul', NULL, NULL, 8),
+('shardul birje', 'shardul@gmail.com', 'shardul', 1234567890, '', 8),
 ('Rohana Survase', 'rohanasurvase@gmail.com', 'rohana', NULL, NULL, 9),
 ('Sayali  Khamgaonkar', 'sayali@gmail.com', 'sayali', NULL, NULL, 10);
 
@@ -143,16 +143,21 @@ INSERT INTO `customer` (`username`, `email`, `password`, `phone`, `address`, `us
 --
 
 CREATE TABLE `orders` (
-  `Order_id` int(11) NOT NULL,
-  `Cust_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `address` varchar(300) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `cust_id` int(11) NOT NULL,
+  `book_id` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `Total_Amt` int(11) NOT NULL,
-  `Order_Date` date NOT NULL,
-  `Delivery_Date` date NOT NULL,
-  `Status` varchar(100) NOT NULL
+  `total_amt` int(11) NOT NULL,
+  `order_date` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `cust_id`, `book_id`, `quantity`, `total_amt`, `order_date`) VALUES
+(8, 8, '39', 2, 599, '10112021'),
+(9, 8, '19', 1, 2499, '10112021');
 
 -- --------------------------------------------------------
 
@@ -218,7 +223,7 @@ ALTER TABLE `customer`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`Order_id`);
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -228,7 +233,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -240,7 +245,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
