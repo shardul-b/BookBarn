@@ -12,7 +12,7 @@ echo'
                   <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">About us</a>
+                  <a class="nav-link" href="./aboutus.php">About us</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="./categories.php">Categories</a>
@@ -31,7 +31,7 @@ echo'
                   </ul>
                 </li>-->
                 <li class="nav-item">
-                  <a class="nav-link" href="./Blog/index.php">Blog</a>
+                  <a class="nav-link" href="./Blog/index.html">Blog</a>
                 </li>
                 
               </ul>

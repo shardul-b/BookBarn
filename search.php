@@ -1,6 +1,6 @@
 <?php
 	 require('./PHP/connect.php');
-	
+	 session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +10,10 @@
     <link href="./bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<title>Search</title>
-	<link rel="stylesheet" href="assets/fonts/ionicons.min.css"><link rel="stylesheet" href="assets/css/Brands.css"><link rel="stylesheet" href="assets/css/Projects-Horizontal.css"><link rel="stylesheet" href="assets/css/styles.css">
+	<!-- <link rel="stylesheet" href="assets/fonts/ionicons.min.css"><link rel="stylesheet" href="assets/css/Brands.css"><link rel="stylesheet" href="assets/css/Projects-Horizontal.css"><link rel="stylesheet" href="assets/css/styles.css"> -->
 	<style>
 		.flex-wrapper {
 			display: flex;
-			flex-shrink: 0;
-			flex-grow: 1;
 			flex-direction: column;
 		    justify-content: space-between;
 		}
@@ -26,8 +24,8 @@
 <?php  require('./PHP/header.php'); ?>
 <div class="flex-wrapper">
 	<div class="container">		
+		<h2>Search Results: </h2>
 	<?php
-
 			if(isset($_GET['value'])){
 				$searchterm=$_GET['value'];	
 				$sql="SELECT * FROM books WHERE original_title LIKE '%$searchterm%' OR genre='$searchterm'";
@@ -83,29 +81,33 @@
 					echo'
 				        <div class="row py-3 border-bottom border-default">
 				            <div class="col-md-2 col-5 d-flex justify-content-end ">
-				                <img src="'.$row["image_url"].'" class="" alt="Image" style=" max-height:12em; ">
+				                <img src="'.$row["image_url"].'" class="" alt="Image" style=" max-width:8em; ">
 				            </div>
+				            
 				            <div class="col-md-8 col-7 border border-default">
-				            	<div class="card border-0">
-		                  			<div class="card-body">
-						                <a href="./book_desc.php"></a>
-			                    		<h5 class="card-title">'.$row["original_title"].'</h5>
-				                    	<div class="rating">
-				                    		'.$rating.'
-			                    		</div>
-				                    	<span class="card-text d-block">&#8377;'.$row["cost"].'</h5></span>
-				                   		<span style="color: var(--bs-indigo);">In Stock</span>
-				                    	<div class="d-flex py-2">
-				                        	<a href="#" type="button" class="btn btn-primary">ADD TO CART</a>
-				                        	<!--<a href="#" class="btn btn-success ms-2">BUY NOW</a>-->
-				                  		</div>
-				                  	</div>
-				                </div>
+					            	
+					            	<div class="card border-0">
+			                  			<div class="card-body">
+							                <a href="./book_desc.php"></a>
+				                    		<h5 class="card-title">'.$row["original_title"].'</h5>
+					                    	<div class="rating">
+					                    		'.$rating.'
+				                    		</div>
+					                    	<span class="card-text d-block">&#8377;'.$row["cost"].'</h5></span>
+					                   		<span style="color: var(--bs-indigo);">In Stock</span>
+					                    	<div class="d-flex py-2">
+					                        	<a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary"><b>VIEW PRODUCT</b></a>
+					                        								
+					                        	<!--<a href="#" class="btn btn-success ms-2">BUY NOW</a>-->
+					                  			
+					                  		</div>
+					                  	</div>
+					                </div>
 				            </div>
 				        </div>';
 				   	}
 				}else{
-				 	echo mysqli_error($connection);
+				 	echo "<p class='mb-5'>No Products found!</p>";
 				}
 
 			}else{

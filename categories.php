@@ -19,6 +19,7 @@
 			
 		</div>
 	</div>
+	<?php require './PHP/footer.php' ?>
 	<script src="./JS/categories.js"></script>
 </body>
 </html>

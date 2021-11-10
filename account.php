@@ -29,7 +29,7 @@
                 if(!isset($_SESSION['userid'])){
                     header('Location:./login.php');
                 }
-                    $sql = "SELECT * FROM customer WHERE  userid="+.$_SESSION['userid'];
+                    $sql = "SELECT * FROM customer WHERE  userid=".$_SESSION['userid'];
                             if($result = mysqli_query($connection, $sql)){
                                 //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -71,12 +71,29 @@
                                                     
                                             </div>
                                         </div>
-                                        <div class="Row">
+                                        <div class="row">
+                                            <div class="col-25">
+                                                <label for="password">Password:</label>
+                                            </div>
+                                            <div class="col-75 input-group">
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    value="'.$row["password"]
+                                                    .'"
+                                                >
+                                                <div class="px-2 py-2 mx-1" id="password-eye">
+                                                    <span class="fas fa-eye-slash d-none" id="hide-pass"></span>
+                                                    <span class="fas fa-eye" id="display-pass"></span>
+                                                </div>
+                                                    
+                                            </div>
+                                        </div>
+                                        <div class="Row my-4">
                                             <form mehod="post">
                                                 <button name="edit" class="btn btn-outline-success">EDIT</button>
                                                 </form>
                                                 <button name="logout" class="btn btn-outline-danger">LOGOUT</button>
                                         </div>
+
                                     ';
                                 }
                             }
@@ -85,7 +102,6 @@
             </form>
         </div>
     </div>
-
     <div class="mid">
         <!-- <div class="container-box"> -->
             <!-- Order DB -->
@@ -100,8 +116,8 @@
                             echo "<script> location.href='./login.php'; </script>";
                             exit;
                         }
-                        $sql = "SELECT * FROM `order` WHERE Cust_id = 8";
-                        $result=mysqli_query($connection,$sql) or die('Invalid query:');
+                        $sql = "SELECT * FROM `orders` WHERE Cust_id =".$_SESSION['userid'];
+                        $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
                         while($row = mysqli_fetch_assoc($result)){
                             //echo $row['product_id'];
                             $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
@@ -133,17 +149,18 @@
     </div>
     
     <?php
+    // Needs Update
         if(isset($_POST['edit'])){
             $UserName=$_POST["username"];
             $email=$_POST["email"];
             $phone=$_POST["phone"];
             $Address=$_POST["address"];
-            $sql="UPDATE User SET Firstname='$FirstName',Lastname='$LastName',Email='$email',Phone='$phone',Address='$Address' WHERE id = ".$_SESSION['userid']."";
+            $password=$_POST["password"];
+            $sql="UPDATE customer SET username='$UserName',email='$email',phone='$phone',address='$Address',password='$password' WHERE  userid = ".$_SESSION['userid']."";
             $result = mysqli_query($connection,$sql) or die('Invalid query:'.mysqli_error($connection));
         }
         if(isset($_POST['logout'])){
             unset($_SESSION['userid']);
-            $_SESSION['loggedin']=false;
             session_destroy();
             echo "<script> location.href='./index.php'; </script>";
             exit;
@@ -154,5 +171,20 @@
             // include './PHP/footer.php';
         ?>
     </footer>
+    <script>
+        document.getElementById('password-eye').addEventListener('click',()=>{
+            let display_pass=document.getElementById('display-pass');
+            if(!display_pass.classList.contains('d-none')){
+                document.getElementById('hide-pass').classList.remove('d-none');
+                document.getElementById('password').type="text";
+                display_pass.classList.add('d-none')
+            }else{
+                document.getElementById('hide-pass').classList.add('d-none');
+                document.getElementById('password').type="password";
+                display_pass.classList.remove('d-none')
+            }
+            
+        });
+    </script>
 </body>
 </html>

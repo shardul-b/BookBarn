@@ -6,17 +6,17 @@ let genres=[
 		},
 		juvenile_fiction:{
 			name:'Juvenile Fiction',
-			image:''
+			image:'./assets/img/booklogo.png'
 		},
 		novel:{
 			name:'Novels',
-			image:''
+			image:'./assets/img/booklogo.png'
 		}
 	},
 	{
 		literary_criticism:{
 			name:'Literary Criticism',
-			image:''
+			image:'./assets/img/booklogo.png'
 		}
 	}
 ];
@@ -24,7 +24,7 @@ let categories_ref=document.getElementsByClassName("categories")[0];
 for(let i of genres){
 	//Create row
 	let row=document.createElement("div");
-	row.classList.add('row');
+	row.classList.add('row','my-4');
 	for(let j of Object.values(i)){
 		//column  
 		let col=document.createElement("div");
@@ -32,12 +32,12 @@ for(let i of genres){
 		//card
 		let card=document.createElement("div");
 		card.classList.add("card");
-		card.style.width="16rem";
+		card.style.width="16em";
 		//card head
 		let card_head=document.createElement("div");
-		card_head.classList.add("ratio","ratio-4x3");
+		// card_head.classList.add("ratio","ratio-4x4");
 		card_head.style.objectFit="contain";
-		card_head.innerHTML='<img src='+j["image"]+' class="card-img-top py-2" style="object-fit: contain;" alt="Book image">';
+		card_head.innerHTML='<img src='+j["image"]+' class="card-img-top pb-2" style="object-fit: contain;" alt="Book image">';
         card.appendChild(card_head);
         let card_body=document.createElement("div");
         card_body.classList.add("card-body");

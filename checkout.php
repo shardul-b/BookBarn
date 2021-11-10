@@ -3,7 +3,10 @@
 	require './PHP/connect.php';
 	require './PHP/common_files.php';
 	$selectOrder='';
+	$insertOrder='';
 	$flag=0;
+	$quantity=0;
+	$data=array();
 	$final_price=0;
 	if(isset($_GET['id'])){
 		$selectOrder="SELECT * FROM books WHERE book_id=".$_GET['id'];
@@ -24,7 +27,7 @@
 	 ?>
 	 <div class="container my-5 px-5">
 	     <div class="mb-4">
-	         <h2>Confirm order and pay</h2> <!-- <span>please make the payment, after that you can enjoy all the features and benefits.</span> -->
+	         <h2>Confirm order</h2>
 	     </div>
 	     
 	     <div class="row mb-3">
@@ -36,9 +39,12 @@
 		 		     	if($flag==0){
 		 	                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		 	                	
+		 	                	// array_push($ids, $row['book_id']);
+		 	                	// $quantity+=$row["quantity"];
 		 	                	$sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
 		 	                	$result2=mysqli_query($connection,$sql2) or die('Invalid query:');
 		 	                	$row2 = mysqli_fetch_assoc($result2);
+		 	                		$data += array($row['book_id'] => $row["quantity"].",".$row2["cost"]);
 		 	                		$final_price+=$row2["cost"];
 		 	                		echo
 		 	                		'
@@ -58,9 +64,13 @@
 	    					        </div>
 		 	                		';
 		 	                }
+		 	                
+		 		     		
 		 		     	}else{
 		 	                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		 	                		$final_price=$row["cost"];
+		 	                		$date=date('dmY');
+		 	            	
 		 	                		echo
 		 	                		'
 	    				 		     <div class="d-flex">
@@ -78,7 +88,8 @@
 	    					            </div>
 	    					        </div>
 		 	                		';
-		 	                }	
+		 	                }
+		 	                $insertOrder="INSERT INTO orders(cust_id,book_id,quantity,total_amt,order_date)VALUES(".$_SESSION['userid'].",".$_GET['id'].",1,".$final_price.",".$date.")";	
 		 		     	}
 		 		     	
 		 		     ?>
@@ -106,23 +117,38 @@
 			                //$row = mysqli_fetch_all($result, MYSQLI_NUM);
 			                while ($row_user = mysqli_fetch_array($result_user, MYSQLI_ASSOC)) {
 			                	echo'
-	                		    	<input type="text" name="name" class="form-control" required="required" value="'.$row_user["username"].'">
+	                		    	<div class="form-floating">
+	                		    		<input type="text" name="username" class="form-control" required="required" value="'.$row_user["username"].'" placeholder="Username">
+		                		    	<label for="username">Username</label>
+		                		    </div>
 		                		    <div class="row">
 		                		        <div class="col-md-6">
-		                		            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span> </div>
-		                		        </div>
-		                		        <div class="col-md-6">
-		                		            <div class="d-flex flex-row">
-		                		                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
-		                		                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
+		                		            <div class="inputbox form-floating mt-3 mr-2"> 
+		                		            	<input type="text" name="phone" class="form-control" required="required" value="'.$row_user["phone"].'" placeholder="Phone"> <i class="fa fa-phone mt-3"></i>
+		                		            	<label for="phone">Phone</label>
 		                		            </div>
 		                		        </div>
+		                		        <!--<div class="col-md-6">
+		                		            <div class="d-flex flex-row">
+		                		                <div class="inputbox mt-3 mr-2"> 
+		                		                	<input type="text" name="name" class="form-control" required="required">
+		                		                </div>
+		                		                <div class="inputbox mt-3 mr-2"> 
+		                		                	<input type="text" name="name" class="form-control" required="required">
+		                		                </div>
+		                		            </div>
+		                		        </div>-->
 		                		    </div>
 		                		    <div class="mt-4 mb-4">
 		                		        <h6 class="text-uppercase">Billing Address</h6>
 		                		        <div class="row mt-3">
 		                		            <div class="col-md">
-		                		                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Address</span> </div>
+		                		                <div class="inputbox form-floating mt-3 mr-2"> 
+		                		                	<input type="text" name="address" class="form-control" required="required" placeholder="Address"
+		                		                		value="'.$row_user["address"].'" 
+		                		                	>
+		                		                	<label for="address">Address</label>
+		                		                </div>
 		                		            </div>
 		                		            <!-- <div class="col-md-6">
 		                		                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
@@ -138,7 +164,8 @@
 		                		        </div> -->
 		                		    </div>
 		                		</div>
-		                		<div class="mt-2 mb-4 d-flex justify-content-between"> <button class="btn btn-success px-3">Confirm</button> </div>
+		                		<form method="POST" class="mt-2 mb-4 d-flex justify-content-between"> 
+		                			<button class="btn btn-success px-3" type="submit" name="confirm_order">Confirm</button> </form>
 			                	';
 			                }
 			            }
@@ -152,5 +179,36 @@
 	 <?php 
 	 	require './PHP/footer.php'; 
 	 ?>
+	 <?php
+	 	if(isset($_POST['confirm_order'])){
+	 		if($flag==0){
+	 			$date=date('dmY');
+
+		 	                	
+	 			foreach ($data as $key => $value) {
+	 				$a=explode(',', $value);
+	 				$insertOrder="INSERT INTO orders(cust_id,book_id,quantity,total_amt,order_date)VALUES(".$_SESSION['userid'].",".$key.",".$a[0].",".$a[1].",".$date.")";
+	 				$clearCart="DELETE FROM cart WHERE cust_id=".$_SESSION['userid'];                                                                                      
+					$result = mysqli_query($connection,$insertOrder);
+					if($result){
+						if (mysqli_query($connection, $clearCart)) {
+						  echo "<script>alert('Success')</script>";
+						} else {
+						  echo "Error deleting record: " . mysqli_error($conn);
+						}
+					}else{
+					  	echo(mysqli_error($connection));
+					}                          
+	 			}	
+	 		}else{
+	 			$result = mysqli_query($connection,$insertOrder);
+	 			if($result){
+	 				$msg = "<script>alert('Success')</script>";
+	 			}else{
+	 			  	echo(mysqli_error($connection));
+	 			}
+	 		}
+	 	}
+	  ?>
 </body>
 </html>

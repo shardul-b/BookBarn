@@ -4,7 +4,9 @@
 body{
     margin: 0;
 }
-
+#password-eye:hover{
+  cursor: pointer;
+}
 .top{
     margin:20px;
 }
@@ -33,7 +35,6 @@ img{
 .container{
   width:95%;
   margin:0 auto;
-  /*border: 1px solid yellow;*/
 }
 label {
   padding: 12px 12px 12px 0;
@@ -57,7 +58,7 @@ input[type=submit]:hover {
 */
 .container-box {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #ddd;
   padding: 20px;
 }
 

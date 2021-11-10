@@ -12,6 +12,11 @@
     <!-- <link rel="stylesheet" href="assets/fonts/ionicons.min.css"> -->
     <!-- <link rel="stylesheet" href="assets/css/Projects-Horizontal.css"> -->
     <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
+    <style>
+        img{
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,12 +38,12 @@
     <div class="container my-4">
         <div class="row">
             <div class="col-sm-3">
-                <div style="max-width:5em;">
+                <div style="max-width:20em;" >
                   <img src="
                   <?php
                       echo $row['image_url'];
                   ?>" 
-                  class="image">
+                  style="object-fit: contain;">
                 </div>
 
                 <?php 
@@ -57,9 +62,11 @@
             </h5>   
             <p>Inclusive of all tax</p>
             <form method="post">
+                <div class="col-8">
                 <div class="input-group">
                     <input type="number" min="0" max="2" name="quantity" class="form-control">
                     <button class="btn btn-primary" name="cart_button" type="submit">Add to cart</button>
+                </div>
                 </div>
             </form>
                 <h3 class="mt-5">Book Details</h3>
