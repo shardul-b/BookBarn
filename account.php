@@ -22,6 +22,16 @@
         ?>
     <!-- </header> -->
     <div class="top">
+    <div class="container-box ">
+        <h2> Wallet details </h2>
+        <p>Available wallet funds</p>
+        <div class="d-inline p-2 bg-primary text-white d-flex mb-3 w-25 "><h5>#</h5></div>
+         <button type="button"  class="btn btn-secondary mr-2">Add funds </button>
+              <button type="button"  class="btn btn-secondary">remove?</button>
+ 
+            </div>
+</div>
+    <div class="top">
         <div class="container-box">
             <h2> Profile Details</h2>
             <form action="" method="post">
@@ -102,6 +112,12 @@
             </form>
         </div>
     </div>
+    <div class="top">
+    <div class="container-box">
+        <h2> Rent/sell </h2>
+        <a href="rentform.php"><button type="button"  class="btn btn-secondary mr-2">Rent </button></a>
+              <button type="button"  class="btn btn-secondary">Sell</button>
+            </div>
     <div class="mid">
         <!-- <div class="container-box"> -->
             <!-- Order DB -->
