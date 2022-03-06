@@ -21,7 +21,7 @@ require('./PHP/common_files.php');
             <div class="col-lg-8">
 
                 <!-- Post Content -->
-            <p class="lead text-justify">
+            <p class="lead" style="text-align:justify;">
                 We have tried to build a platform where a user can avail services such as buy sell and rent book all at the same place and thus providing users with features like ShoppingCart, Product recommendations.The objective is to design a web-based application which would provide users with a variety ofbooks and allow users to buy, sell, rent books with all other services including shopping cart, a recommendation system to recommend books to the user, payment, a responsive user interfaceand other features that a regular E-commerce website has. Thus, reducing user’s efforts to buy abook and saving their time by bringing books to their phones. This would not only allow users to buy books but at the same time boost the sale of physical books.
             </p>
                 <hr>

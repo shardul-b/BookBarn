@@ -1,0 +1,20 @@
+{
+  "name": "bookbarn-server",
+  "version": "1.0.0",
+  "description": "API for connecting Frontend and Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shardul Birje",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

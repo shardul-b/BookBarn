@@ -2,6 +2,14 @@
     require('./PHP/connect.php');
     require './PHP/common_files.php';
     session_start();
+    if(isset($_GET['rating_success'])){
+        echo '
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Success!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
+    }
 ?>
 <!DOCTYPE html>
 <html>
