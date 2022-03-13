@@ -8,15 +8,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Collaborative Filtering</title>
+	<!-- <title>Collaborative Filtering</title> -->
 </head>
 <body>
-	
-	<?php 
-		require './PHP/header.php';
-	?>
 	<h3>Collaborative Filtering</h3>
-	<div id="books" class="ms-2 mt-1">
+	<div id="books" class="row d-block" style=" white-space: nowrap; overflow-x:auto;">
 		
 	</div>
 	<!-- <button name="submit" disabled>Submit</button> -->

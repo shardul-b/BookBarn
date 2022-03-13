@@ -216,6 +216,7 @@ cosine_sim_corpus = linear_kernel(tfidf_matrix_corpus, tfidf_matrix_corpus)
 titles = books['title']
 images=books['image_url']
 authors=books['authors']
+
 indices = pd.Series(books.index, index=books['title'])
  
 # Function that get book recommendations based on the cosine similarity score of books tags
@@ -233,6 +234,7 @@ def corpus_recommendations(title):
         inner_obj["book_title"]=titles.iloc[i]
         inner_obj["book_image"]=images.iloc[i]
         inner_obj["book_author"]=authors.iloc[i]
+        inner_obj["book_id"]=i
         # t=titles.iloc[book_indices]
         # i=images.iloc[book_indices]
         # a=authors.iloc[book_indices]

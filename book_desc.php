@@ -16,6 +16,10 @@
         img{
             max-width: 100%;
         }
+        iframe{
+            width: 100%;
+            height: 25em;
+        }
     </style>
 </head>
 
@@ -129,6 +133,10 @@
         <h4 class="mt-2">Description</h4>
         <p style="text-align: justify;"><?php echo $row['description'];
               ?></p>
+    </div>
+    <div class="container my-4">
+        <h5>Some Books You might like</h5>
+         <iframe src="./content.php" title="Recommended Books"></iframe> 
     </div>
     <?php 
 

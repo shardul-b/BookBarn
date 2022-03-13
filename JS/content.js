@@ -5,31 +5,36 @@ const displayBooks=(book_details)=>{
 	for(let i in book_details){
 
 		let book_wrapper=creator('div');
-		book_wrapper.classList.add('book-wrapper')
+		book_wrapper.classList.add('book-wrapper','col-lg-2', 'd-inline-block', 'ms-2');
+		//a tag
+		let bookLink=creator('a');
+		bookLink.setAttribute('href',`book_desc.php?id=${book_details[i].book_id}`);
+		bookLink.setAttribute('target','_blank');
+		bookLink.classList.add('text-decoration-none', 'link-dark');
+		
+		//card div
+		let book_card=creator('div');
+		book_card.classList.add('card');
+
 		let image_wrapper=creator('div');
+		image_wrapper.classList.add('ratio', 'ratio-4x3', 'image-wrapper');
 		let book_img=creator('img');
 		let book_details_div=creator('div');
-		//Rating
-		let rating_options=creator('div');
-
+		book_details_div.classList.add('card-body');
 		book_img.setAttribute('src',book_details[i].book_image);
+		book_img.classList.add('card-img-top','py-2');
 		image_wrapper.appendChild(book_img);
-		book_wrapper.appendChild(image_wrapper);
+		book_card.appendChild(image_wrapper);
+
 		book_details_div.innerHTML=
 		`
-			<p class="book-name">${book_details[i].book_title}</p>
-			<p class="book-author">By ${book_details[i].book_author}</p>
+			<h6 class="card-title">${book_details[i].book_title}</h6>
+			<p class="book-author card-text">By ${book_details[i].book_author}</p>
+			<p class="card-text">&#8377; 1 </p>
 		`;
-		book_wrapper.appendChild(book_details_div);
-		// ratings_options.innerHTML=
-		// `
-		// 	<input type="radio" name="rating" id="rating_1" class="rating_value" value="1" />
-		// 	<label for="rating_1">1</label>
-		// 	<input type="radio" name="rating" id="rating_2" class="rating_value" value="2" />
-
-		// 	<!--<button>I haven't seen this book</button>-->
-		// `;
-		// book_wrapper.appendChild(rating_options);
+		book_card.appendChild(book_details_div);
+		bookLink.appendChild(book_card);
+		book_wrapper.appendChild(bookLink);
 		books_ref.appendChild(book_wrapper)
 	}
 
@@ -46,3 +51,6 @@ const fetchBooks=async ()=>{
 }
 
 window.onload=fetchBooks();
+
+
+

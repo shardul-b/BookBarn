@@ -88,10 +88,11 @@
             </div> -->
             <?php
                 $rating='';
-                $sql = "SELECT * FROM books where average_rating>4 ORDER BY original_title LIMIT 10";
+                $sql = "SELECT * FROM books_1 where `original_title`!= '' AND  average_rating>4  ORDER BY RAND() LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                        // print_r($row);
                         switch (intval($row['average_rating'])){
                             case 1:
                                 $rating='
@@ -149,7 +150,7 @@
                                       <div class="rating">
                                          '.$rating.'
                                       </div>
-                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
+                                      <!--<p class="card-text">&#8377;'/*.$row["cost"]*/.' </p>-->
                                       <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a> 
                                     </div>
                                 </div>
@@ -162,6 +163,15 @@
             ?>
     </div> 
 </div> 
+</div>
+<!-- Recommended Books -->
+<div class="products-section">
+    <h2 class="ms-3">Some Books you might like..</h2>
+    <hr>
+    <div class="container my-5">
+        <iframe src="./collaborative.php" title="Recommended Books" frameborder="0"></iframe>   
+    </div>
+    
 </div>
 <div class="products-section">
     <h2 class="ms-3">Trending Fiction Books</h2>
