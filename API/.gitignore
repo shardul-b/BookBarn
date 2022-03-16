@@ -1,6 +1,2 @@
 node_modules
-books.csv
-books_tags.csv
-ratings.csv
-tags.csv
-to_read.csv
+*.csv
