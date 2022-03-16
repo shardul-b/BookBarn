@@ -26,6 +26,13 @@
         overflow: hidden;
         text-overflow: ellipsis; 
       }
+      img{
+        max-width: 100%;
+      }
+      iframe{
+        width: 100%;
+        height: 22em;
+      }
     </style>
 </head>
 <body style="height:100vh">
@@ -87,7 +94,6 @@
                 </div>
             </div> -->
             <?php
-                $rating='';
                 $sql = "SELECT * FROM books_1 where `original_title`!= '' AND  average_rating>4  ORDER BY RAND() LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
@@ -161,8 +167,8 @@
                     echo"error";
                 }
             ?>
+        </div> 
     </div> 
-</div> 
 </div>
 <!-- Recommended Books -->
 <div class="products-section">
