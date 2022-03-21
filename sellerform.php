@@ -23,9 +23,9 @@
           echo'
           <div class="options">
             <p class="lead">You can either fill your book\'s details manually or use our book search for filling it automatically</p>
-            <a href="./rentform.php?manual=true"class="btn btn-primary" role="button">Fill Manually</a>
+            <a href="./sellerform.php?manual=true"class="btn btn-primary" role="button">Fill Manually</a>
             <span>or</span>
-            <a href="./book-finder.php?trigger=rentform.php" class="btn btn-outline-success" role="button">Search book details from our Barn</a>
+            <a href="./book-finder.php?trigger=sellerform.php" class="btn btn-outline-success" role="button">Search book details from our Barn</a>
           </div>';
       }else{
         echo'
@@ -64,7 +64,7 @@
               <input type="number" class="form-control" id="book-cost" name="book-cost">     
             </div>
 
-            <div class="form-group mb-4 col-sm-4">
+            <!--<div class="form-group mb-4 col-sm-4">
               <label for="rent-cost">Rent charges</label>
               <input type="number" class="form-control" id="rent-cost" name="rent-cost">     
             </div>
@@ -72,7 +72,7 @@
             <div class="form-group mb-4 col-sm-4">
               <label for="rent-duration">Duration for rent (In days)</label>
               <input type="number" class="form-control" name="rent-duration" id="rent-duration">     
-            </div>
+            </div>-->
 
             <div class="col-auto">
               <button type="submit" class="btn btn-primary" name="rent-details-submit">Submit</button>
@@ -128,10 +128,6 @@
 </body>
 </html>
 
-
-<!-- TO DO:
-fill bookid userid in rent userid from session
-insert in rent -->
 
 
 
