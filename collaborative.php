@@ -27,6 +27,11 @@
 		    overflow: hidden;
 		    text-overflow: ellipsis; 
       	}*/
+      	.card-title,.book-author{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
 	</style>
 </head>
 <body>

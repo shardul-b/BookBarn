@@ -1,4 +1,29 @@
-<?php 
+
+<?php
+// if(isset($_SESSION['userid'])){
+//   echo $_SESSION['userid'];  
+//   $notifications="SELECT `offer_id`,`customer_id`,`status` from `rent_offers` WHERE `renter_id`='".$_SESSION['userid']."'";
+//   $notificationsResult = mysqli_query($connection, $notifications);
+//   $dropDownlist='';
+//   if (mysqli_num_rows($notificationsResult) > 0) {
+//     $dropDownlist='
+//       <ul class="dropdown-menu" aria-labelledby="notifDropdown">
+//       ';
+//     while($notificationsRow = mysqli_fetch_assoc($notificationsResult)) {
+//       $dropDownlist+=
+//       '
+//         <li><a class="dropdown-item" href="#">Action</a></li>
+//       ';
+//       echo "id: " . $notificationsRow["id"]. " - Name: " . $notificationsRow["firstname"]. " " . $notificationsRow["lastname"]. "<br>";
+//     }
+//     $dropDownlist+='</ul>';
+//   } else {
+//     echo "0 results";
+//   }
+// }
+
+
+
 echo'
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
           <div class="container-fluid">
@@ -16,6 +41,9 @@ echo'
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="./categories.php">Categories</a>
+                </li>
+                <li class="nav-item"> 
+                  <a class="nav-link" href="./rent-books.php">Rentals</a>
                 </li>
                 <!--<li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,9 +68,12 @@ echo'
                 <button class="btn btn-outline-success"  id="search-button">Search</button>
               </div>'
               .(!(isset($_SESSION["userid"]))?'
-              <a href="./login.php" class="btn btn-primary ms-4">
+              <a href="./login.php" class="btn btn-primary ms-2">
                   SIGN IN
               </a>':'
+              <a href="updates.php" class="mx-2 btn btn-outline-light" type="button" id="updatesButton">
+                <i class="fas fa-book"></i>
+              </a>
               <a href="./account.php" class="btn btn-primary ms-4">
                   My Account
               </a>

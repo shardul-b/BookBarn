@@ -93,7 +93,7 @@
 					                    	<div class="rating">
 					                    		'.$rating.'
 				                    		</div>
-					                    	<span class="card-text d-block">&#8377;'.$row["cost"].'</h5></span>
+					                    	<span class="card-text d-block">&#8377;'.$row["cost"].'</span>
 					                   		<span style="color: var(--bs-indigo);">In Stock</span>
 					                    	<div class="d-flex py-2">
 					                        	<a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary"><b>VIEW PRODUCT</b></a>

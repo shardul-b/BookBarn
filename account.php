@@ -20,16 +20,16 @@
             require './PHP/connect.php';
             include './PHP/header.php';
         ?>
-    <!-- </header> -->
-    <div class="top">
-    <div class="container-box ">
+    <!-- </header> --> 
+   <div class="container-box ">
         <h2> Wallet details </h2>
         <p>Available wallet funds</p>
         <div class="d-inline p-2 bg-primary text-white d-flex mb-3 w-25 "><h5>#</h5></div>
-         <button type="button"  class="btn btn-secondary mr-2">Add funds </button>
-              <button type="button"  class="btn btn-secondary">remove?</button>
- 
-            </div>
+        <p>Frozen funds</p>
+        <div class="d-inline p-2 bg-secondary text-white d-flex mb-3 w-25 "><h5>#</h5></div>
+         <button type="button"  class="btn btn-success mr-2">Add funds </button>
+              <button type="button"  class="btn btn-primary">Withdraw</button>
+    <!-- </div> -->
 </div>
     <div class="top">
         <div class="container-box">
@@ -115,7 +115,9 @@
     <div class="top">
     <div class="container-box">
         <h2> Rent/sell </h2>
-        <a href="rentform.php"><button type="button"  class="btn btn-secondary mr-2">Rent </button></a>
+        <a href="./rentform.php" role="button" class="btn btn-primary mr-2"> 
+           Rent
+        </a>
               <button type="button"  class="btn btn-secondary">Sell</button>
             </div>
     <div class="mid">

@@ -124,7 +124,7 @@
   <?php
     require './PHP/footer.php';
   ?>
-  <script src="./JS/book-json.js"></script>
+  <!-- <script src="./JS/book-json.js"></script> -->
 </body>
 </html>
 

@@ -1,7 +1,8 @@
 <?php 
     require('./PHP/connect.php');
-    require './PHP/common_files.php';
     session_start();
+    require './PHP/common_files.php';
+    
     if(isset($_GET['rating_success'])){
         echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -171,14 +172,22 @@
     </div> 
 </div>
 <!-- Recommended Books -->
-<div class="products-section">
-    <h2 class="ms-3">Some Books you might like..</h2>
-    <hr>
-    <div class="container my-5">
-        <iframe src="./collaborative.php" title="Recommended Books" frameborder="0"></iframe>   
-    </div>
-    
-</div>
+<?php 
+    if(isset($_SESSION['userid'])){
+        echo
+        '
+            <div class="products-section">
+                <h2 class="ms-3">Some Books you might like..</h2>
+                <hr>
+                <div class="container my-5">
+                    <iframe src="./collaborative.php" title="Recommended Books" frameborder="0"></iframe>   
+                </div>
+                
+            </div>
+        ';
+    }
+ ?>
+
 <div class="products-section">
     <h2 class="ms-3">Trending Fiction Books</h2>
     <hr>

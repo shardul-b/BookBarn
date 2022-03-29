@@ -1,4 +1,10 @@
 <?php 
+    /*
+        Updates required:
+        Check if a book is available on rent
+        display rent details 
+        let user(user can't  be the renter) insert his dates for rent
+    */
     session_start();
     require'./PHP/common_files.php';
     if(!isset($_SESSION['userid'])){
@@ -9,9 +15,7 @@
 <html lang="en">
 <head>
      <title>Product Desciption</title>
-    <!-- <link rel="stylesheet" href="assets/fonts/ionicons.min.css"> -->
-    <!-- <link rel="stylesheet" href="assets/css/Projects-Horizontal.css"> -->
-    <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
+
     <style>
         img{
             max-width: 100%;
