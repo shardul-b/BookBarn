@@ -120,7 +120,7 @@
         $bookInsert="INSERT INTO `books`(`book_isbn`, `authors`, `original_publication_year`, `original_title`, `language_code`, `average_rating`, `image_url`, `cost`, `description`, `book_details`, `genre`) VALUES ( '$bookISBN','$bookAuthor',[value-4],'$bookTitle',[value-7],0,[value-10],'$bookCost','$bookDescription','$bookDetails','$bookGenre')";
         //get id of inserted book: $bookID=mysqli_insert_id($conn)
 
-        $rentInsert="INSERT INTO `rent`(`user_id`, `rent_book_id`, `period`, `cost`) VALUES ('$_SESSION["userid"]','$bookid','$bookRentduration','$bookRentcost')";
+        // $rentInsert="INSERT INTO `rent`(`user_id`, `rent_book_id`, `period`, `cost`) VALUES ('$_SESSION["userid"]','$bookid','$bookRentduration','$bookRentcost')";
 
         
       }
