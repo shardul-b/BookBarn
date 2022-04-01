@@ -144,5 +144,27 @@
 
 
 <!-- TO DO:
-fill bookid userid in rent userid from session
+fill bookid userid in rent (userid from session)
 insert in rent -->
+
+<!-- 
+1. When user enters a book for rent the book_count would be 0 since it is not available to buy yet
+
+2. However the book desc page would be displayed with "avaialble on rent" button so that user can check rent details and add his own date
+
+3. This date will be approved by Renter(user who has put the book no rent)
+
+
+
+Wallet:
+
+on step 2 if a user has less balance than mentioned in the rates of rent. The user would not be allowed to send request for rent.
+
+if he has then the amount of rent eg- 5rs per day for 10 days would be 50 and if book cost=200
+then user's 150 rs would be frozen (50 for rent 100 for book)
+then 5 rs would be deducted from user's account daily until he cancel's rent(After which he/ she has a window of 2 days to return the book else fine period would start)
+
+if returned on time- no fine and leftover money returned to user
+
+else- fine from frozen amount
+ --> 

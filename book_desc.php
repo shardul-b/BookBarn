@@ -35,6 +35,7 @@
 ?>
 <?php 
     $sql = "SELECT * FROM books where book_id=".$_GET['id']."";
+    $rentSQL="SELECT * FROM rent where rent_book_id=".$_GET['id']."";
     $rating='';
     if($result = mysqli_query($connection, $sql)){
       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -134,6 +135,54 @@
               ?></p>
             </div>
         </div>
+        <!-- Rent Box -->
+        <?php 
+            $renterId='';
+            $rent_result = mysqli_query($connection, $rentSQL);
+            if (mysqli_num_rows($rent_result) > 0) {
+              echo "<h3>Available on Rent</h3>";
+              // output data of each row
+              while($rent_row = mysqli_fetch_assoc($rent_result)) {
+                $renterId=$rent_row['user_id'];
+                $userSQL="SELECT `username` from `customers` WHERE `userid`='".$rent_row['user_id']."'";
+                $userResult=mysqli_query($connection, $userSQL);
+                $user_row=mysqli_fetch_assoc($userResult); 
+                    echo'
+                    <div class="row py-3 border-bottom border-default rent-details">
+                        <div class="col-md-2 col-5 d-flex justify-content-end ">
+                            <img src="'.$rent_row["rent_book_image"].'" class="" alt="Image" style=" max-width:8em; ">
+                        </div>
+                        <div class="col-md-8 col-7 border border-default">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">'.$row["original_title"].'</h5>
+                                        <p>Rented By: '.$user_row["username"].'</p>
+                                    <div class="period">
+                                        <p>'.$rentRow["period"].' days</p>
+                                    </div>
+                                    <span class="card-text d-block">&#8377;'.$rentRow["cost"].' per day</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+              }
+                echo"<h5>Want this book on rent?</h5>";
+                echo "<p>Just Enter a Date and we will deliver the book to you!!";
+                echo
+                '
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="rent-date">Enter Start Date</span>
+                          <input type="date" class="form-control" placeholder="DD/MM/YYYY" aria-label="Enter Start Date" name="rent-date" aria-describedby="rent-date">
+                        </div>
+                        <button type="submit" name="rent-date-submit">Confirm</button>
+                    </form>
+                ';
+
+            }
+
+         ?>
         <h4 class="mt-2">Description</h4>
         <p style="text-align: justify;"><?php echo $row['description'];
               ?></p>
@@ -147,6 +196,7 @@
         include './PHP/footer.php';
      ?>
     <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Cart -->
     <?php
         if(isset($_POST['cart_button'])){
             if(!isset($_SESSION['userid'])){
@@ -158,6 +208,16 @@
             }
         }
     ?>
+    <!-- Rent -->
+    <?php 
+        if(isset($_POST['rent-date-submit'])){
+            $rentDate=$_POST['rent-date'];
+            $insertDate="INSERT INTO `rent_offers`(`renter_id`, `book_id`, `customer_id`, `start_date`, `status`) VALUES (".$renterId.",".$_GET['id'].",".$_SESSION['userid'].",".$rentDate.",false)";
+            //Check Balance in Wallet
+            // $checkBalance="SELECT"                                                                                                              
+        }
+
+     ?>
 </body>
 
 </html>

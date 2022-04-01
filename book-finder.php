@@ -13,7 +13,7 @@
 		}
 		echo 
 		'
-			<script src="./JS/api-key.js"></script>
+			<script src="./API/api-key.js"></script>
 			<style>
 			.callout {
 		  padding: 20px;

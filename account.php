@@ -21,28 +21,23 @@
             include './PHP/header.php';
         ?>
     <!-- </header> --> 
-   <div class="container-box ">
-        <h2> Wallet details </h2>
-        <p>Available wallet funds</p>
-        <div class="d-inline p-2 bg-primary text-white d-flex mb-3 w-25 "><h5>#</h5></div>
-        <p>Frozen funds</p>
-        <div class="d-inline p-2 bg-secondary text-white d-flex mb-3 w-25 "><h5>#</h5></div>
-         <button type="button"  class="btn btn-success mr-2">Add funds </button>
-              <button type="button"  class="btn btn-primary">Withdraw</button>
-    <!-- </div> -->
-</div>
+
     <div class="top">
         <div class="container-box">
             <h2> Profile Details</h2>
             <form action="" method="post">
                 <?php
+                $funds=0;
+                $frozenFunds=0;
                 if(!isset($_SESSION['userid'])){
                     header('Location:./login.php');
                 }
                     $sql = "SELECT * FROM customer WHERE  userid=".$_SESSION['userid'];
                             if($result = mysqli_query($connection, $sql)){
                                 //$row = mysqli_fetch_all($result, MYSQLI_NUM);
-                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                                $funds=$row["funds"];
+                                $frozenFunds=$row["frozen_funds"];
                                     echo'
                                         <div class="row">
                                             <div class="col-25">
@@ -105,13 +100,36 @@
                                         </div>
 
                                     ';
-                                }
                             }
 
                 ?>
             </form>
         </div>
     </div>
+        <div class="top">
+           <div class="container-box">
+                <h2> Wallet details </h2>
+                <p>Available wallet funds</p>
+                <div class="d-inline p-2 bg-primary text-white d-flex mb-3 w-25 ">
+                    <h5>&#8377;
+                    <?php 
+                        echo $funds;
+                    ?>  
+                    </h5>
+                </div>
+                <p>Frozen funds</p>
+                <div class="d-inline p-2 bg-secondary text-white d-flex mb-3 w-25 ">
+                    <h5>&#8377;
+                    <?php 
+                        echo $frozenFunds;
+                    ?>
+                    </h5>
+                </div>
+                 <a href="./funds.php?action=add" class="btn btn-success mr-2">Add funds </a>
+                 <a href="./funds.php?action=withdraw" class="btn btn-primary">Withdraw</a>
+            <!-- </div> -->
+            </div>
+        </div>
     <div class="top">
     <div class="container-box">
         <h2> Rent/sell </h2>
