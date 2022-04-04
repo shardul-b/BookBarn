@@ -2,9 +2,13 @@
 	session_start();
 	require './PHP/connect.php';
 	require'./PHP/common_files.php';
-	if(isset($_GET['ratings'])){
-		echo $_GET['ratings'];
-	}
+	$ratingsQuery="SELECT `ratings` from `customer` WHERE `userid`=".$_SESSION['userid']."";
+    $ratingResult = mysqli_query($connection, $ratingsQuery);
+    $userRatings='';
+    if(mysqli_num_rows($ratingResult) > 0){
+        $ratingsRow = mysqli_fetch_assoc($ratingResult);
+        $userRatings=$ratingsRow['ratings'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,5 +51,10 @@
 	</div>
 	<!-- <button name="submit" disabled>Submit</button> -->
 	<script src="./JS/collaborative.js"></script>
+	<?php 
+		// $userRatings=json_decode($userRatings);
+	// echo(json_decode($userRatings))
+		echo "<script>fetchBooks(".$_SESSION['userid'].",'".$userRatings."')</script>";
+	 ?>
 </body>
 </html>

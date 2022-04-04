@@ -298,29 +298,29 @@ trainset, testset = train_test_split(data, test_size=0.2, random_state=0)
 
 
 # define a cosine metric for item-item
-sim_cos = {'name':'cosine', 'user_based':False}
+# sim_cos = {'name':'cosine', 'user_based':False}
 
 
 # In[35]:
 
 
 # define and fit a basic KNN model with a cosine metric
-basic = knns.KNNBasic(sim_options=sim_cos)
-basic.fit(trainset)
+# basic = knns.KNNBasic(sim_options=sim_cos)
+# basic.fit(trainset)
 
 
 # In[36]:
 
 
 # make predictions
-predictions = basic.test(testset)
+# predictions = basic.test(testset)
 
 
 # In[37]:
 
 
 # check accuracy
-accuracy.rmse(predictions)
+# accuracy.rmse(predictions)
 
 
 # In[38]:
@@ -338,11 +338,11 @@ accuracy.rmse(predictions)
 
 
 # KNN with means model, which takes the mean ratings of each item into account
-sim_pearson = {'name':'pearson', 'user_based':False}
-knn_baseline = knns.KNNWithMeans(sim_options=sim_pearson)
-knn_baseline.fit(trainset)
-predictions = knn_baseline.test(testset)
-accuracy.rmse(predictions)
+# sim_pearson = {'name':'pearson', 'user_based':False}
+# knn_baseline = knns.KNNWithMeans(sim_options=sim_pearson)
+# knn_baseline.fit(trainset)
+# predictions = knn_baseline.test(testset)
+# accuracy.rmse(predictions)
 
 
 # A KNN Baseline with a pearson baseline similarity metric.
@@ -351,11 +351,11 @@ accuracy.rmse(predictions)
 
 
 # KNN baseline model, which takes into account a baseline rating (global mean)
-sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
-knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
-knn_baseline.fit(trainset)
-predictions = knn_baseline.test(testset)
-accuracy.rmse(predictions)
+# sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
+# knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
+# knn_baseline.fit(trainset)
+# predictions = knn_baseline.test(testset)
+# accuracy.rmse(predictions)
 
 
 # In[41]:
@@ -427,11 +427,12 @@ accuracy.rmse(predictions)
 # In[47]:
 
 
-# Compute unbiased accuracy on B
-testset = data.construct_testset(B_raw_ratings)  # testset is now the set B
+# Compute unbiased accuracy on B (testset)
+testset = data.construct_testset(B_raw_ratings)  
+# testset is now the set B
 predictions = best_svd.test(testset)
 # print('Unbiased accuracy on B,', end=' ')
-accuracy.rmse(predictions)
+# accuracy.rmse(predictions)
 
 
 # In[48]:
@@ -535,7 +536,7 @@ def get_recs(df=ratings, metadata=books, num_of_rec=3, num_of_ratings=10):
 # In[53]:
 
 
-get_recs(num_of_rec=5, num_of_ratings=3)
+get_recs(num_of_rec=10, num_of_ratings=8)
 
 
 # In[ ]:

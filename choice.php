@@ -39,16 +39,16 @@
 			foreach($_POST['rating_value'] as $selected) {
 				$ratings_arr=explode(':', $selected);
 
-				$ratingsObj["user_id"]=$_SESSION['userid'];
+				// $ratingsObj["user_id"]=$_SESSION['userid'];
 				$ratingsObj["book_id"]=$ratings_arr[0];
 				$ratingsObj["rating"]=$ratings_arr[1];
-				array_push($outputArr, json_encode($ratingsObj));
+				array_push($outputArr, $ratingsObj);
 			}
 
 			// array_push($outputArr, json_encode($ratingsObj));
 			// $ratingStr="".$outputArr."";
 			// $ratingsStr=json_encode($ratingsObj);
-			// print_r(json_encode($outputArr));
+			// $outputArr=json_encode($outputArr);
 			$query = "UPDATE customer  SET ratings='".json_encode($outputArr)."' WHERE userid=".$_SESSION['userid']."";
 			echo($query);
             $result = mysqli_query($connection,$query);
@@ -60,7 +60,7 @@
             }else{
                 echo(mysqli_error($connection));
             }
-			// echo $outputArr;
+			echo $outputArr;
 		}
 		else{
 			echo "<b>Please Select Atleast One Option.</b>";

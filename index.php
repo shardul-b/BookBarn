@@ -174,13 +174,6 @@
 <!-- Recommended Books -->
 <?php 
     if(isset($_SESSION['userid'])){
-        $ratingsQuery="SELECT `ratings` from `customer` WHERE `userid`=".$_SESSION['userid']."";
-        $ratingResult = mysqli_query($connection, $ratingsQuery);
-        $userRatings='';
-        if(mysqli_num_rows($ratingResult) > 0){
-            $ratingsRow = mysqli_fetch_assoc($ratingResult);
-            $userRatings=$ratingsRow['ratings'];
-        }
         //stopped here
         echo
         '
@@ -188,7 +181,7 @@
                 <h2 class="ms-3">Some Books you might like..</h2>
                 <hr>
                 <div class="container my-5">
-                    <iframe src="./collaborative.php?ratings='.$userRatings.'" title="Recommended Books"></iframe>   
+                    <iframe src="./collaborative.php" title="Recommended Books"></iframe>   
                 </div>
                 
             </div>

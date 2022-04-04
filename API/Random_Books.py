@@ -19,7 +19,7 @@ books.head()
 # In[7]:
 
 
-num_of_ratings=10
+num_of_ratings=8
 outer_dict={}
 inner_dict={}
 while num_of_ratings > 0:

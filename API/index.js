@@ -54,13 +54,13 @@ app.get('/random_books',(req,res)=>{
 */
 // Collaborative Filtering
 app.post('/books-collab',(req,res)=>{
-
-    let process = spawn('python3',["Collaborative-Filtering-KNN.py",JSON.stringify(req.body.values),req.body.values[0].user_id])
+    console.log(JSON.stringify(req.body.ratings))
+    let process = spawn('python3',["Collaborative-Filtering-KNN.py",JSON.stringify(req.body.ratings),req.body.user_id])
     // console.log(process)
     process.stdout.on('data', function (data) {
-        // console.log(data.toString().split('{'))
+        // console.log()
         console.log(data.toString());
-        res.json(data.toString());
+        res.json(data.toString().split('$')[1]);
     });
     process.stderr.on('error',function(error){
         console.log(error);

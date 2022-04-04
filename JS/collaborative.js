@@ -39,14 +39,21 @@ const displayBooks=(book_details)=>{
 
 	// book_details=book_details.replace(/\[\]/g,'')
 	// console.log(typeof(book_details))
-const fetchBooks=async ()=>{
+const fetchBooks=async (user_id,ratings_object)=>{
 	//Fetch contents from url
+    ratings_object=JSON.parse(ratings_object)
+    for(let i in ratings_object){
+    	ratings_object[i].user_id=user_id;
+		console.log(ratings_object[i])    	
+    }
     let value={
-    		"values":[
-			    {"user_id": 847, "book_id": 33, "rating": 1}, 
-			    {"user_id": 847, "book_id": 91, "rating": 3}, 
-			    {"user_id": 847, "book_id": 64, "rating": 4}
-  	  		]
+    	"user_id":user_id,
+    	"ratings":ratings_object
+    		// "values":[
+			   //  {"user_id": 847, "book_id": 33, "rating": 1}, 
+			   //  {"user_id": 847, "book_id": 91, "rating": 3}, 
+			   //  {"user_id": 847, "book_id": 64, "rating": 4}
+  	  	// 	]
 		};
 	value=JSON.stringify(value)
     const response = await fetch(url,{
@@ -66,4 +73,44 @@ const fetchBooks=async ()=>{
 	displayBooks(JSON.parse(data));
 }
 
-window.onload=fetchBooks();
+
+/*
+Existing Object
+[
+"{"user_id":"8","book_id":"7","rating":"3"}",
+"{"user_id":"8","book_id":"80","rating":"4"}",
+"{"user_id":"8","book_id":"31","rating":"2"}",
+"{"user_id":"8","book_id":"52","rating":"5"}",
+"{"user_id":"8","book_id":"45","rating":"2"}",
+"{"user_id":"8","book_id":"48","rating":"4"}",
+"{"user_id":"8","book_id":"38","rating":"2"}"
+]
+*/
+
+/*
+Updated Object
+["
+{"book_id":"23","rating":"4"}",
+"{"book_id":"113","rating":"3"}",
+"{"book_id":"9","rating":"5"}",
+"{"book_id":"86","rating":"3"}",
+"{"book_id":"55","rating":"4"}",
+"{"book_id":"98","rating":"5"}",
+"{"book_id":"45","rating":"5"}",
+"{"book_id":"19","rating":"3"}
+"]
+*/
+
+/*
+[
+{"book_id":"65","rating":"3"},
+{"book_id":"3","rating":"4"},
+{"book_id":"37","rating":"5"},
+{"book_id":"37","rating":"3"},
+{"book_id":"2","rating":"4"},
+{"book_id":"45","rating":"5"},
+{"book_id":"65","rating":"3"},
+{"book_id":"16","rating":"3"}
+]
+
+*/
