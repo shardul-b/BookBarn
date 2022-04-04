@@ -2,6 +2,7 @@ const url="http://localhost:3000/books-collab"
 const creator=(element)=>document.createElement(element);
 const books_ref=document.getElementById('books');
 const displayBooks=(book_details)=>{
+	document.getElementById('spinner').style.display='none';
 	for(let i in book_details){
 		let book_wrapper=creator('div');
 		book_wrapper.classList.add('book-wrapper','col-lg-4', 'd-inline-block', 'my-2');
@@ -57,10 +58,12 @@ const fetchBooks=async ()=>{
     });
     //store response
     let data=await response.json();
+    
     // console.log();
-    let json_string=data.split("$")[1]
-    console.log(json_string)
-	displayBooks(JSON.parse(json_string));
+    // let json_string=data.split("$")[1]
+    console.log(data)
+
+	displayBooks(JSON.parse(data));
 }
 
 window.onload=fetchBooks();

@@ -2,6 +2,9 @@
 	session_start();
 	require './PHP/connect.php';
 	require'./PHP/common_files.php';
+	if(isset($_GET['ratings'])){
+		echo $_GET['ratings'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +38,9 @@
 	</style>
 </head>
 <body>
+	<div class="spinner-border text-primary" id='spinner' role="status">
+	  <span class="visually-hidden">Loading...</span>
+	</div>
 	<!-- <h3>Collaborative Filtering</h3> -->
 	<div id="books" class="row d-block" style=" white-space: nowrap; overflow-x:auto;">
 		

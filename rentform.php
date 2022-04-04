@@ -13,7 +13,9 @@
     require './PHP/connect.php';
     include './PHP/header.php';
   ?>
-  
+  <?php 
+    require './PHP/error/php';
+   ?>
   <!-- <div class="top"></div> -->
    
   <div class="container p-2">

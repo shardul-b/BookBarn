@@ -2,8 +2,13 @@ const url="http://localhost:3000/books"
 const creator=(element)=>document.createElement(element);
 const books_ref=document.getElementById('books');
 const displayBooks=(book_details)=>{
+	console.log(book_details)
+	if(book_details.error){
+		books_ref.innerHTML=`<p>${book_details.error}</p>`;
+		return false;
+	}
 	for(let i in book_details){
-
+		// console.log(book_details[i].title)
 		let book_wrapper=creator('div');
 		book_wrapper.classList.add('book-wrapper','col-lg-2', 'd-inline-block', 'ms-2');
 		//a tag
@@ -41,16 +46,27 @@ const displayBooks=(book_details)=>{
 	// book_details=book_details.replace(/\[\]/g,'')
 	// console.log(typeof(book_details))
 }
-const fetchBooks=async ()=>{
+const fetchBooks=async (bookTitle)=>{
+	// console.log(bookTitle)
 	//Fetch contents from url
-    const response = await fetch(url);
+	let titleObj={'title':`${bookTitle}`};
+	titleObj=JSON.stringify(titleObj);
+    const response = await fetch(url,{
+    	method: 'POST',
+	  	headers: {
+	    	'Content-Type': 'application/json',
+	  	},
+    	body:titleObj,
+    });
     //store response
     let data=await response.json();
-    console.log(data);
-	displayBooks(data);
+    //console.log(JSON.parse(data));
+	document.getElementById('spinner').style.display='none';
+	displayBooks(JSON.parse(data));
+
 }
 
-window.onload=fetchBooks();
+// window.onload=fetchBooks(bookTitle);
 
 
 

@@ -224,44 +224,36 @@ def corpus_recommendations(title):
     inner_obj={}
     outer_obj={}   
     num_id=0
-    idx = indices1[title]
-    sim_scores = list(enumerate(cosine_sim_corpus[idx]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:21]
-    book_indices = [i[0] for i in sim_scores]
-    for i in book_indices:
-        num_id+=1
-        inner_obj["book_title"]=titles.iloc[i]
-        inner_obj["book_image"]=images.iloc[i]
-        inner_obj["book_author"]=authors.iloc[i]
-        inner_obj["book_id"]=i
-        # t=titles.iloc[book_indices]
-        # i=images.iloc[book_indices]
-        # a=authors.iloc[book_indices]
-        # print(t,i,a)
-        outer_obj[num_id]=inner_obj
-        inner_obj={}
-    # print(a.to_json())
-    print(json.dumps(outer_obj, indent=4))
-    sys.stdout.flush()
+    try:
+        idx = indices1[title]
+        sim_scores = list(enumerate(cosine_sim_corpus[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        sim_scores = sim_scores[1:21]
+        book_indices = [i[0] for i in sim_scores]
+        for i in book_indices:
+            num_id+=1
+            inner_obj["book_title"]=titles.iloc[i]
+            inner_obj["book_image"]=images.iloc[i]
+            inner_obj["book_author"]=authors.iloc[i]
+            inner_obj["book_id"]=i
+            # t=titles.iloc[book_indices]
+            # i=images.iloc[book_indices]
+            # a=authors.iloc[book_indices]
+            # print(t,i,a)
+            outer_obj[num_id]=inner_obj
+            inner_obj={}
+        # print(a.to_json())
+        print(json.dumps(outer_obj, indent=4))
+        sys.stdout.flush()
+    except:
+        outer_obj["error"]="No recommendations"
+        print(json.dumps(outer_obj, indent=4))
+        sys.stdout.flush()
+        
+# print(sys.argv[1])
+bookTitle=sys.argv[1]
+corpus_recommendations(bookTitle)
 
-corpus_recommendations("The Hobbit")
-
-
-
-# In[ ]:
-
-
-#corpus_recommendations("Twilight (Twilight, #1)")
-
-
-# In[ ]:
-
-
-#corpus_recommendations("Romeo and Juliet")
-
-
-# In[ ]:
 
 
 

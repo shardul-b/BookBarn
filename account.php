@@ -131,13 +131,14 @@
             </div>
         </div>
     <div class="top">
-    <div class="container-box">
-        <h2> Rent/sell </h2>
-        <a href="./rentform.php" role="button" class="btn btn-primary mr-2"> 
-           Rent
-        </a>
-              <button type="button"  class="btn btn-secondary">Sell</button>
-            </div>
+        <div class="container-box">
+            <h2> Rent or sell Books </h2>
+            <a href="./rentform.php" role="button" class="btn btn-primary me-4"> 
+               Rent a book
+            </a>
+            <button type="button"  class="btn btn-secondary">Sell a book</button>
+        </div>
+    </div>
     <div class="mid">
         <!-- <div class="container-box"> -->
             <!-- Order DB -->

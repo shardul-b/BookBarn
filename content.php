@@ -2,6 +2,11 @@
 	session_start();
 	require './PHP/connect.php';
 	require'./PHP/common_files.php';
+	$bookTitle='';
+	if(isset($_GET['title'])){
+		$bookTitle=$_GET['title'];
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +36,20 @@
 </head>
 <body>
 	<!-- <div class="container my-5"> -->
-        <div id="books" class="row d-block" style=" white-space: nowrap; overflow-x:auto; ">
+		<div class="spinner-border text-primary" id='spinner' role="status">
+           <span class="visually-hidden">Loading...</span>
+         </div>
+        <div id="books" class="row d-block" style=" white-space: nowrap; overflow-x:auto;">
 	<!-- <div  class="ms-2 mt-1">
 		
 	</div> -->
 		</div>
 	<!-- </div> -->
 	<!-- <button name="submit" disabled>Submit</button> -->
+
 	<script src="./JS/content.js"></script>
+	<?php 
+		echo "<script>fetchBooks('".$bookTitle."')</script>";
+	 ?>
 </body>
 </html>

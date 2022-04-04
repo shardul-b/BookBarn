@@ -187,9 +187,11 @@
         <p style="text-align: justify;"><?php echo $row['description'];
               ?></p>
     </div>
+
     <div class="container my-4">
         <h5>Some Books You might like</h5>
-         <iframe src="./content.php" title="Recommended Books"></iframe> 
+         
+         <iframe src="./content.php?title=<?php echo $row['original_title']; ?>" title="Recommended Books" ></iframe> 
     </div>
     <?php 
 

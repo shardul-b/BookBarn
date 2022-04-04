@@ -12,15 +12,18 @@ app.listen(port,()=>{
 var spawn = require('child_process').spawn;
 
 // Content Based Recommendation
-app.get('/books',(req, res)=>{
-    var process = spawn('python3',['goodbooks-content-based-book-recommendation.py']);
+app.post('/books',(req, res)=>{
+    //console.log(req.body.title)
+    var process = spawn('python3',['goodbooks-content-based-book-recommendation.py',req.body.title]);
     // console.log(process)
     process.stdout.on('data', function (data) {
-        res.send(data.toString());
+        // console.log(data.toString())
+        res.json(data.toString());
     });
 });
 //Random Books for rating
 app.get('/random_books',(req,res)=>{
+    
     var process = spawn('python3',['Random_Books.py']);
     process.stdout.on('data', function (data) {
         res.json(data.toString());
@@ -56,8 +59,12 @@ app.post('/books-collab',(req,res)=>{
     // console.log(process)
     process.stdout.on('data', function (data) {
         // console.log(data.toString().split('{'))
+        console.log(data.toString());
         res.json(data.toString());
     });
+    process.stderr.on('error',function(error){
+        console.log(error);
+    })
 });
 // '[{"user_id": 847, "book_id": 33, "rating": 1}, {"user_id": 847, "book_id": 91, "rating": 3}, {"user_id": 847, "book_id": 64, "rating": 4}]' 847
 
