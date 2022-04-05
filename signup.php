@@ -79,6 +79,15 @@
             $query = "INSERT INTO customer (username,email,password) VALUES ('$username', '$email', '$password')";
             $result = mysqli_query($connection,$query);
             if($result){
+                $newuserid=mysqli_insert_id($connection);
+                $_SESSION['userid']=$newuserid;
+                //Create folder for user
+                mkdir('./Uploads/'.$newuserid,0777,true);
+                //Create profile folder (future update)
+                mkdir('./Uploads/'.$newuserid.'/profile',0777,true);
+                //Create book image uploads folder
+                mkdir('./Uploads/'.$newuserid.'/books',0777,true);
+                
                 echo'
                 <script>
                   location.href="./choice.php";

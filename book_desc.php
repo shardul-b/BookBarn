@@ -34,7 +34,7 @@
   include('./PHP/connect.php');
 ?>
 <?php 
-    $sql = "SELECT * FROM books where book_id=".$_GET['id']."";
+    $sql = "SELECT * FROM books_1 where book_id=".$_GET['id']."";
     $rentSQL="SELECT * FROM rent where rent_book_id=".$_GET['id']."";
     $rating='';
     if($result = mysqli_query($connection, $sql)){
