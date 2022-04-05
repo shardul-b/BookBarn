@@ -14,7 +14,7 @@
     include './PHP/header.php';
   ?>
   <?php 
-    require './PHP/error/php';
+    require './PHP/error.php';
    ?>
   <!-- <div class="top"></div> -->
    

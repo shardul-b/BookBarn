@@ -1,18 +1,12 @@
 <?php 
     session_start();
-
+    require'./PHP/common_files.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="./bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./assets/css/account.css" rel="stylesheet" type="text/css"> 
-
-    <!-- <link rel="stylesheet" href="./CSS/header.css"> -->
-    <!-- <link rel="stylesheet" href="./CSS/footer.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 <body>
     <!-- <header> -->
@@ -136,7 +130,9 @@
             <a href="./rentform.php" role="button" class="btn btn-primary me-4"> 
                Rent a book
             </a>
-            <button type="button"  class="btn btn-secondary">Sell a book</button>
+            <a href="./sellerform.php" role="button" class="btn btn-secondary"> 
+               Sell a book
+            </a>
         </div>
     </div>
     <div class="mid">
@@ -184,7 +180,10 @@
                 </div>
             </div>
     </div>
-    
+    <div class="mid">
+        <h2 class="ms-3">Books on Sale</h2>
+
+    </div>
     <?php
     // Needs Update
         if(isset($_POST['edit'])){
