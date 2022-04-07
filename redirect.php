@@ -14,10 +14,15 @@
 	 //Check Trigger
 	 	if(isset($_GET['trigger'])){
 	 		$bookID=$_GET['id'];
+	 		$trigger=$_GET['trigger'];
 	 		//sell 
-	 		if($_GET['trigger']=='sell'){
-	 			echo "<script>location.href='./uploadBookImage.php?id=".$bookID."&trigger=sell'</script>";
-	 		}
+	 		// if($_GET['trigger']=='sell'){
+	 			echo "<script>location.href='./uploadBookImage.php?id=".$bookID."&trigger=".$trigger."'</script>";
+	 		// }else{
+
+	 		// }
+	 	}elseif(isset($_GET['backTo'])){
+	 		echo "<script>location.href='./".$_GET['backTo']."'</script>";
 	 	}
 	  ?>
 </body>

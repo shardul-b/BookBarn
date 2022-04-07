@@ -151,9 +151,12 @@
                         }
                         $sql = "SELECT * FROM `orders` WHERE Cust_id =".$_SESSION['userid'];
                         $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+                        if(mysqli_num_rows($result)<1){
+                            echo"No Books Available!";
+                        }
                         while($row = mysqli_fetch_assoc($result)){
                             //echo $row['product_id'];
-                            $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
+                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['book_id']."";
                             $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
                             $row2 = mysqli_fetch_assoc($result2);
                             // while($row2 = mysqli_fetch_assoc($result2)){
@@ -182,7 +185,93 @@
     </div>
     <div class="mid">
         <h2 class="ms-3">Books on Sale</h2>
-
+        <div class="products">
+                
+                <div class="container">
+                    <!-- First -->
+                    <?php
+                        if(!isset($_SESSION['userid'])){
+                            echo "<script> location.href='./login.php'; </script>";
+                            exit;
+                        }
+                        $sql = "SELECT * FROM `sell_books` WHERE user_id =".$_SESSION['userid'];
+                        $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+                        if(mysqli_num_rows($result)<1){
+                            echo"No Books Available!";
+                        }
+                        while($row = mysqli_fetch_assoc($result)){
+                            //echo $row['product_id'];
+                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['book_id']."";
+                            $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
+                            $row2 = mysqli_fetch_assoc($result2);
+                            // while($row2 = mysqli_fetch_assoc($result2)){
+                                echo'
+                                <div class="row shadow my-2">
+                                    <div class="col-md-2 col-4 d-flex align-items-center justify-content-end">
+                                        <img src="'.$row2["image_url"].'" alt="Image" style=" max-height:6.2em;">
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        <div class="card border-0">
+                                          <!-- <h5 class="card-header">User Name</h5> <--></-->
+                                          <div class="card-body">
+                                            <span class="card-title">'.$row2["original_title"].'</span>
+                                            <p>x'.$row2["books_count"].'</p>
+                                            <p>&#8377;'.$row2["cost"].'</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ';
+                            // }
+                        }
+                    ?>
+                </div>
+            </div>
+    </div>
+    <div class="mid">
+        <h2 class="ms-3">Books on Rent</h2>
+        <div class="products">
+                
+                <div class="container">
+                    <!-- First -->
+                    <?php
+                        if(!isset($_SESSION['userid'])){
+                            echo "<script> location.href='./login.php'; </script>";
+                            exit;
+                        }
+                        $sql = "SELECT * FROM `rent` WHERE user_id =".$_SESSION['userid'];
+                        $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+                        if(mysqli_num_rows($result)<1){
+                            echo"No Books Available!";
+                        }
+                        while($row = mysqli_fetch_assoc($result)){
+                            //echo $row['product_id'];
+                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['rent_book_id']."";
+                            $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
+                            $row2 = mysqli_fetch_assoc($result2);
+                            // while($row2 = mysqli_fetch_assoc($result2)){
+                                echo'
+                                <div class="row shadow my-2">
+                                    <div class="col-md-2 col-4 d-flex align-items-center justify-content-end">
+                                        <img src="'.$row["rent_book_image"].'" alt="Image" style=" max-height:6.2em;">
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        <div class="card border-0">
+                                          <!-- <h5 class="card-header">User Name</h5> <--></-->
+                                          <div class="card-body">
+                                            <span class="card-title">'.$row2["original_title"].'</span>
+                                            <!--<p>x'.$row["quantity"].'</p>-->
+                                            <p>&#8377;'.$row["cost"].'/day</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ';
+                            // }
+                        }
+                    ?>
+                </div>
+            </div>
     </div>
     <?php
     // Needs Update

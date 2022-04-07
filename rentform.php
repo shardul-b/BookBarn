@@ -55,15 +55,19 @@
               <input type="text" class="form-control" name="book-author" id="book-author">  
             </div>
 
+            <div class="form-group mb-4 col-sm-8">
+              <label for="book-lang">Language Code</label>
+              <input type="text" class="form-control" id="book-lang" name="book-lang">     
+            </div>
 
             <div class="form-group mb-4 col-sm-4">
               <label for="book-cost">Cost</label>
-              <input type="number" class="form-control" id="book-cost" name="book-cost">     
+              <input type="number" class="form-control" id="book-cost" name="book-cost" min="0.0" step="0.01" placeholder="0.0">     
             </div>
 
             <div class="form-group mb-4 col-sm-4">
               <label for="rent-cost">Rent charges (in days)</label>
-              <input type="number" class="form-control" id="rent-cost" name="rent-cost" title="eg:if rs 3/day then enter 3">     
+              <input type="number" class="form-control" id="rent-cost" name="rent-cost" title="eg:if rs 3/day then enter 3.00" min="0.0" step="0.01" placeholder="0.0">     
             </div>
 
             <div class="form-group mb-4 col-sm-4">
@@ -103,51 +107,59 @@
       $bookDetails= $_POST['book-details'];
       $bookGenre= $_POST['book-category'];
       $bookAuthor= $_POST['book-author'];
-      $bookCost = $_POST['book-cost'];
-      $bookRentcost = $_POST['rent-cost'];
+      $bookCost = floatval($_POST['book-cost']);
+      $bookLang=$_POST['book-lang'];
+      $bookRentcost = floatval($_POST['rent-cost']);
       $bookRentduration = $_POST['rent-duration'];
       //Search Books
-      $bookSearch = "SELECT 1 from books WHERE book_isbn=SELECT book_isbn FROM books where authors='bookAuthors' AND title= '$bookTitle'";
-      $query= mysqli_query($connection,$bookSearch);
+      $bookSearch = "SELECT * from books_1 WHERE isbn=(SELECT isbn FROM books_1 where authors='$bookAuthor' AND original_title= '$bookTitle')";
+      // echo $bookSearch;
+      $queryResult= mysqli_query($connection,$bookSearch);
       //if book exists    
-      if (mysqli_num_rows($query)>0) {
-        $book_data = mysqli_fetch_assoc($query);
-        print_r($book_data);
+      if (mysqli_num_rows($queryResult)>0) {
+        //works
+        $book_data = mysqli_fetch_assoc($queryResult);
+        // print_r($book_data);
       }else{
-        // book id should be auto incremented
-        //remove book_count
-        //implement input for publication year
-        //implement input for language code
-        //input for url
-        $bookInsert="INSERT INTO `books`(`book_isbn`, `authors`, `original_publication_year`, `original_title`, `language_code`, `average_rating`, `image_url`, `cost`, `description`, `book_details`, `genre`) VALUES ( '$bookISBN','$bookAuthor',[value-4],'$bookTitle',[value-7],0,[value-10],'$bookCost','$bookDescription','$bookDetails','$bookGenre')";
-        //get id of inserted book: $bookID=mysqli_insert_id($conn)
-
-        // $rentInsert="INSERT INTO `rent`(`user_id`, `rent_book_id`, `period`, `cost`) VALUES ('$_SESSION["userid"]','$bookid','$bookRentduration','$bookRentcost')";
+        $bookInsert="INSERT INTO `books_1`(`books_count`,`isbn`, `authors`, `original_title`, `language_code`, `average_rating`, `cost`, `description`, `book_details`, `genre`) VALUES (0, '$bookISBN','$bookAuthor','$bookTitle','$bookLang',0,'$bookCost','$bookDescription','$bookDetails','$bookGenre')";
+        // echo $bookInsert;
+        // get id of inserted book: 
+        if (mysqli_query($connection, $bookInsert)) {
+          $bookID=mysqli_insert_id($connection);
+          
+          $rentInsert="INSERT INTO `rent`(`user_id`, `rent_book_id`, `quantity`, `period`, `cost`) VALUES ('".$_SESSION['userid']."','$bookID',1,'$bookRentduration','$bookRentcost')";
+          if (mysqli_query($connection, $rentInsert)) {
+            echo "<script>location.href='./uploadBookImage.php?id=".$bookID."&trigger=rent'</script>";
+          }else{
+            echo mysqli_error($connection);
+            echo '<script>document.getElementById("alerts").innerHTML=`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              Error Updating Rent Data.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          `;</script>';
+          }                              
+        } else {
+          echo(mysqli_error($connection));
+          echo '<script>document.getElementById("alerts").innerHTML=`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              Error Updating Book Data.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          `;</script>';
+        }
 
         
       }
 
   }
-// else{
-
-//   $userid = $_SESSION['userid']
-//   $query2 = "INSERT INTO rent VALUES 
-//     ('', 'Doe', 'john@example.com')";
-// }
    
   ?>       
-
-  <?php
-    require './PHP/footer.php';
-  ?>
   <!-- <script src="./JS/book-json.js"></script> -->
 </body>
 </html>
 
 
-<!-- TO DO:
-fill bookid userid in rent (userid from session)
-insert in rent -->
 
 <!-- 
 1. When user enters a book for rent the book_count would be 0 since it is not available to buy yet

@@ -31,14 +31,18 @@
 <?php 
 
   include("./PHP/header.php");
+  include("./PHP/error.php");
+
   include('./PHP/connect.php');
 ?>
 <?php 
     $sql = "SELECT * FROM books_1 where book_id=".$_GET['id']."";
     $rentSQL="SELECT * FROM rent where rent_book_id=".$_GET['id']."";
     $rating='';
+    $bookCost='';
     if($result = mysqli_query($connection, $sql)){
       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $bookCost=$row['cost'];
         switch (intval($row['average_rating'])){
             case 1:
                 $rating='
@@ -102,7 +106,9 @@
                 </div>
 
                 <?php 
-                   echo' <a href="checkout.php?id='.$_GET["id"].'"type="button" class="btn-lg d-block btn-success my-3 w-100 text-center text-decoration-none">Buy Now</a>';
+                    if($row['books_count']>0){
+                       echo' <a href="checkout.php?id='.$_GET["id"].'"type="button" class="btn-lg d-block btn-success my-3 w-100 text-center text-decoration-none">Buy Now</a>';
+                    }
                  ?>
             </div>
         <div class="col-sm-6 mx-5">
@@ -123,7 +129,14 @@
                 <div class="col-8">
                 <div class="input-group">
                     <input type="number" min="0" max="2" name="quantity" class="form-control">
-                    <button class="btn btn-primary" name="cart_button" type="submit">Add to cart</button>
+                    <?php
+                        if($row['books_count']>0){
+                            echo '<button class="btn btn-primary" name="cart_button" type="submit">Add to cart</button>';
+                        }else{
+                            echo '<button class="btn btn-secondary" name="cart_button" type="submit" disabled>Out of stock</button>';
+                        }
+                    ?>
+                    
                 </div>
                 </div>
             </form>
@@ -135,6 +148,10 @@
               ?></p>
             </div>
         </div>
+        <h4 class="mt-2">Description</h4>
+        <p style="text-align: justify;"><?php echo $row['description'];
+              ?></p>
+        <hr/>
         <!-- Rent Box -->
         <?php 
             $renterId='';
@@ -144,9 +161,13 @@
               // output data of each row
               while($rent_row = mysqli_fetch_assoc($rent_result)) {
                 $renterId=$rent_row['user_id'];
-                $userSQL="SELECT `username` from `customers` WHERE `userid`='".$rent_row['user_id']."'";
+                // if(!$renterId==$_SESSION['userid']){
+
+
+                $userSQL="SELECT `username` from `customer` WHERE `userid`='".$rent_row['user_id']."'";
                 $userResult=mysqli_query($connection, $userSQL);
                 $user_row=mysqli_fetch_assoc($userResult); 
+                // $rentCost=$rentRow["cost"];
                     echo'
                     <div class="row py-3 border-bottom border-default rent-details">
                         <div class="col-md-2 col-5 d-flex justify-content-end ">
@@ -158,15 +179,16 @@
                                     <h5 class="card-title">'.$row["original_title"].'</h5>
                                         <p>Rented By: '.$user_row["username"].'</p>
                                     <div class="period">
-                                        <p>'.$rentRow["period"].' days</p>
+                                        <p>'.$rent_row["period"].' days</p>
                                     </div>
-                                    <span class="card-text d-block">&#8377;'.$rentRow["cost"].' per day</span>
+                                    <span class="card-text d-block">&#8377;'.$rent_row["cost"].' per day</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     ';
-              }
+              // }
+          }
                 echo"<h5>Want this book on rent?</h5>";
                 echo "<p>Just Enter a Date and we will deliver the book to you!!";
                 echo
@@ -183,9 +205,7 @@
             }
 
          ?>
-        <h4 class="mt-2">Description</h4>
-        <p style="text-align: justify;"><?php echo $row['description'];
-              ?></p>
+        
     </div>
 
     <div class="container my-4">
@@ -197,7 +217,7 @@
 
         include './PHP/footer.php';
      ?>
-    <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script> -->
     <!-- Cart -->
     <?php
         if(isset($_POST['cart_button'])){
@@ -214,9 +234,80 @@
     <?php 
         if(isset($_POST['rent-date-submit'])){
             $rentDate=$_POST['rent-date'];
-            $insertDate="INSERT INTO `rent_offers`(`renter_id`, `book_id`, `customer_id`, `start_date`, `status`) VALUES (".$renterId.",".$_GET['id'].",".$_SESSION['userid'].",".$rentDate.",false)";
-            //Check Balance in Wallet
-            // $checkBalance="SELECT"                                                                                                              
+            $date = new DateTime($rentDate);
+            $now = new DateTime();
+            if($date <= $now) {
+                echo 
+                '
+                    <script>document.getElementById("alerts").innerHTML=`
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          Please Enter a valid date!
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;</script>
+                ';
+            }else{
+                $walletMoney="SELECT `funds`,`frozen_funds` from `customer` WHERE `userid`='".$_SESSION['userid']."'";
+                $walletMoneyResult = mysqli_query($connection, $walletMoney);
+                $walletMoneyRow = mysqli_fetch_assoc($walletMoneyResult);
+                $freezeCost=$bookCost*0.5;
+                if($walletMoneyRow['funds']>=$freezeCost){
+                    //new balance
+                    $newBalance=$walletMoneyRow['funds']-$freezeCost;
+                    $freezeCost=$walletMoneyRow['frozen_funds']+$freezeCost;
+                    $updateBalance="UPDATE `customer` SET `frozen_funds`=".$freezeCost.", `funds`=".$newBalance." WHERE `userid`='".$_SESSION['userid']."'";
+                    
+                    if (mysqli_query($connection, $updateBalance)) {
+                                             
+                        $insertDate="INSERT INTO `rent_offers`(`renter_id`, `book_id`, `customer_id`, `start_date`, `status`) VALUES ('".$renterId."','".$_GET['id']."','".$_SESSION['userid']."',".$rentDate.",'pending')";
+
+                        if (mysqli_query($connection, $insertDate)) {
+                          echo 
+                        '
+                            <script>document.getElementById("alerts").innerHTML=`
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  Success! Please wait for the renter\'s approval.
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            `;</script>
+                        ';
+                        } else {
+                          echo 
+                        '
+                            <script>document.getElementById("alerts").innerHTML=`
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  Error! '.mysqli_error($connection).'
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            `;</script>
+                        ';
+                        }
+                    }else{
+                        echo 
+                        '
+                            <script>document.getElementById("alerts").innerHTML=`
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  Error updating balance! '.mysqli_error($connection).'
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            `;</script>
+                        ';
+                    }
+                }else{
+                    echo 
+                        '
+                            <script>document.getElementById("alerts").innerHTML=`
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  You don\'t have enough money to rent this!
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            `;</script>
+                        ';
+                }
+                   
+                 
+            }
+                                                                                                                          
         }
 
      ?>

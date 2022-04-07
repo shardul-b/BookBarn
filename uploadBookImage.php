@@ -58,11 +58,16 @@
 	 
 	 <?php 
 	 	$bookImageSql="SELECT `image_url` FROM `books_1` WHERE `book_id`='".$bookId."'";
+	 	if($trigger=="rent"){
+	 		$bookImageSql="SELECT `rent_book_image` FROM `rent` WHERE `rent_book_id`='".$bookId."'";
+	 	}
 	 	// echo $bookImageSql;
 	 	$bookImageResult = mysqli_query($connection, $bookImageSql);
+
 	 	if (mysqli_num_rows($bookImageResult) > 0) {
 	 	  $bookImageRow = mysqli_fetch_assoc($bookImageResult);
-	 	  if(!is_null($bookImageRow['image_url'])){
+	 	  if($trigger=="sell"){
+	 	  	if(!is_null($bookImageRow['image_url'])){
 	  	 	  echo'
  	  	 	  <div class="container">
  	  		 	  <div class="col-sm-3" style="margin:0 auto;">
@@ -78,7 +83,27 @@
  	  		 	  
  	  		 </div>
 	  	 	  ';	
+	 	  	}	
+	 	  }elseif($trigger=="rent"){
+	 	  	if(!is_null($bookImageRow['rent_book_image'])){
+	  	 	  echo'
+ 	  	 	  <div class="container">
+ 	  		 	  <div class="col-sm-3" style="margin:0 auto;">
+ 	  		 	  	<div style="max-width:20em; " class="my-2" >
+ 	  		 	  	  <img src="'.$bookImageRow["rent_book_image"].'"
+ 	  		 	  	  style="object-fit: contain;">
+ 	  		 	  	</div>
+  	 	  		 	  <div class="d-flex justify-content-center">		
+  		 	  		 	  <a href="./index.php?newbook=success" class="ms-5 me-2 col-sm-6 btn btn-success">Confirm</a>
+  		 	  		 	  <a href="./uploadBookImage.php?action=delete&id='.$bookId.'&trigger=rent" class="col-sm-6 btn btn-danger">Delete</a>  
+  		  		 	  </div>
+ 	  		 	  </div>
+ 	  		 	  
+ 	  		 </div>
+	  	 	  ';	
+	 	  	}
 	 	  }
+	 	  
 	 	}
 	  ?>
 </body>
@@ -109,11 +134,13 @@ if (isset($_POST["book-submit"])) {
             // FileSize less than 10 MB
             if($fileSize < 10000000){
                 //Creates unique ID based on the current microseconds
-                $fileNameNew = 'book'.$bookId.'.'.$fileActualExt;
+                $fileNameNew = $trigger.'book'.$bookId.'.'.$fileActualExt;
                 $target_dir = "Uploads/".$_SESSION['userid']."/books/".$fileNameNew;
                 $insertDocument='';
                 if($trigger=="sell"){
                 	$insertDocument="UPDATE `books_1` SET `image_url`='./".$target_dir."' WHERE `book_id`='".$bookId."'";	
+                }elseif($trigger=="rent"){
+                	$insertDocument="UPDATE `rent` SET `rent_book_image`='./".$target_dir."' WHERE `rent_book_id`='".$bookId."'";
                 }
                 //requires Update
                 // $del='';
@@ -192,7 +219,22 @@ if (isset($_POST["book-submit"])) {
 		if (mysqli_query($connection, $deleteImage)) {
 			//Delete the file regardless of extension
 
-			$file_pattern = "Uploads/".$_SESSION['userid']."/books/book".$bookId.".*";
+			$file_pattern = "Uploads/".$_SESSION['userid']."/books/".$trigger."book".$bookId.".*";
+			array_map("unlink",glob( $file_pattern));
+			echo '
+			<script type="text/javascript">
+				location.href="./redirect.php?id='.$bookId.'&trigger='.$trigger.'";
+			</script>';
+		  	// unlink("Uploads/".$_SESSION['user_id']."/books/");
+		} else {
+		  echo "Error deleting record: " . mysqli_error($connection);
+		}
+	}elseif ($action=="delete" && $trigger=="rent") {
+		$deleteImage="UPDATE `rent` SET `rent_book_image`=NULL WHERE `rent_book_id`='".$bookId."'";
+		if (mysqli_query($connection, $deleteImage)) {
+			//Delete the file regardless of extension
+
+			$file_pattern = "Uploads/".$_SESSION['userid']."/books/".$trigger."book".$bookId.".*";
 			array_map("unlink",glob( $file_pattern));
 			echo '
 			<script type="text/javascript">

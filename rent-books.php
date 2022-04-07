@@ -29,7 +29,7 @@
 				$rentResult=mysqli_query($connection,$rentQuery);
 				if(mysqli_num_rows($rentResult)>0){		
 					while($rentRow = mysqli_fetch_assoc($rentResult)){
-						$sql="SELECT * FROM books WHERE book_id =".$rentRow['rent_book_id'];
+						$sql="SELECT * FROM books_1 WHERE book_id =".$rentRow['rent_book_id'];
 					    $result=mysqli_query($connection,$sql);
 						if(mysqli_num_rows($result)>0){		
 							while($row = mysqli_fetch_assoc($result)){			
@@ -47,6 +47,7 @@
 							                    	<div class="period">
 							                    		<p>'.$rentRow["period"].' days</p>
 						                    		</div>
+						                    		<span class="card-text d-block"></span>
 							                    	<span class="card-text d-block">&#8377;'.$rentRow["cost"].' per day</span>
 							                    	<div class="d-flex py-2">
 							                        	<a href="book_desc.php?id='.$row["book_id"].'" class="btn btn-primary"><b>VIEW PRODUCT</b></a>
@@ -56,6 +57,8 @@
 						            </div>
 						        </div>';
 						   	}
+						}else{
+							echo mysqli_error($connection);
 						}
 
 					}
