@@ -36,9 +36,10 @@
              <!-- Grid column -->
              <div class="col-md-2">
                <h6 class="text-uppercase font-weight-bold">
-                 <a href="./Blog/index.html" class="text-white text-decoration-none">Blog</a>
+                 <a href="./rent-books.php" class="text-white text-decoration-none">Rentals</a>
                </h6>
              </div>
+
              <!-- Grid column -->
 
              <!-- Grid column -->
@@ -46,7 +47,7 @@
                <h6 class="text-uppercase font-weight-bold">
                  <a href="#!" class="text-white">Contact</a>
                </h6>
-             
+              
              <!-- Grid column 
            </div>-->
            <!-- Grid row-->

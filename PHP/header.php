@@ -58,9 +58,9 @@ echo'
                     </li>
                   </ul>
                 </li>-->
-                <li class="nav-item">
+                <!--<li class="nav-item">
                   <a class="nav-link" href="./Blog/index.html">Blog</a>
-                </li>
+                </li>-->
                 
               </ul>
               <div class="d-flex">

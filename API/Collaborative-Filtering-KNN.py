@@ -351,11 +351,11 @@ accuracy.rmse(predictions)
 
 
 # KNN baseline model, which takes into account a baseline rating (global mean)
-# sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
-# knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
-# knn_baseline.fit(trainset)
-# predictions = knn_baseline.test(testset)
-# accuracy.rmse(predictions)
+sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
+knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
+knn_baseline.fit(trainset)
+predictions = knn_baseline.test(testset)
+accuracy.rmse(predictions)
 
 
 # In[41]:

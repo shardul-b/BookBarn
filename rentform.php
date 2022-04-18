@@ -85,9 +85,9 @@
           <h2>Rent your book</h2>     
           <div class="options">
             <p class="lead">You can either fill your book details manually or use our book search for filling it automatically</p>
-            <a href="./rentform.php?manual=true"class="btn btn-primary" role="button">Fill Manually</a>
-            <span>or</span>
-            <a href="./rentform.php?search=true" class="btn btn-outline-success" role="button">Search book details from our Barn</a>
+            <a href="./rentform.php?manual=true"class="btn btn-primary me-2" role="button">Fill Manually</a>
+            <span>OR</span>
+            <a href="./rentform.php?search=true" class="ms-2 btn btn-outline-success" role="button">Search book details from our Barn</a>
           </div>';
       }
     ?>

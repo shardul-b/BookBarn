@@ -95,7 +95,7 @@
                 </div>
             </div> -->
             <?php
-                $sql = "SELECT * FROM books_1 where `original_title`!= '' AND  average_rating>4  ORDER BY RAND() LIMIT 10";
+                $sql = "SELECT * FROM books_1 where `original_title`!= '' AND  average_rating>4  LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -157,7 +157,7 @@
                                       <div class="rating">
                                          '.$rating.'
                                       </div>
-                                      <!--<p class="card-text">&#8377;'/*.$row["cost"]*/.' </p>-->
+                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
                                       <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a> 
                                     </div>
                                 </div>
@@ -195,7 +195,7 @@
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
             <?php
-                $sql_fiction = "SELECT * FROM books where genre = 'Fiction'";
+                $sql_fiction = "SELECT * FROM books_1 where genre = 'Fiction'";
               
                 if($result = mysqli_query($connection, $sql_fiction)){
                     $rating='';
