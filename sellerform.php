@@ -50,8 +50,8 @@
             </div>
 
             <div class="form-group mb-4 col-sm-8">
-              <label class="form-label" for="book-details">Enter book details</label>
-              <textarea class="form-control" id="book-details" rows="4" name="book-details"></textarea>
+              <label class="form-label" for="book-pub">Enter original publication year</label>
+              <textarea class="form-control" id="book-pub" rows="4" name="book-pub"></textarea>
             </div>
 
             <div class="form-group mb-4 col-sm-8">
@@ -110,7 +110,7 @@
       $bookTitle= $_POST['book-title'];
       $bookISBN = $_POST['book-isbn'];
       $bookDescription= mysqli_real_escape_string($connection,$_POST['book-description']);
-      $bookDetails= mysqli_real_escape_string($connection,$_POST['book-details']);
+      $bookPub= $_POST['book-pub'];
       $bookGenre= $_POST['book-category'];
       $bookAuthor= $_POST['book-author'];
       $bookCost = floatval($_POST['book-cost']);
@@ -126,7 +126,7 @@
         print_r($book_data);
       }else{
         //input for url(image would ne added on next page)
-        $bookInsert="INSERT INTO `books_1`(`books_count`,`isbn`, `authors`, `original_title`, `language_code`, `average_rating`, `cost`, `description`, `book_details`, `genre`) VALUES ('$bookQuantity', '$bookISBN','$bookAuthor','$bookTitle','$bookLang',0,'$bookCost','$bookDescription','$bookDetails','$bookGenre')";
+        $bookInsert="INSERT INTO `books`(`books_count`,`isbn`, `authors`,`original_publication_year`, `original_title`,`title`, `language_code`, `average_rating`, `categories`, `cost`, `description`) VALUES ('$bookQuantity', '$bookISBN','$bookAuthor','$bookPub','$bookTitle','$bookTitle','$bookLang',0,'$bookGenre','$bookCost','$bookDescription')";
         echo $bookInsert;
         // get id of inserted book: 
         if (mysqli_query($connection, $bookInsert)) {

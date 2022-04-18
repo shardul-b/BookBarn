@@ -32,7 +32,7 @@ from time import time
 
 
 # load and check first entries of ratings dataset
-ratings = pd.read_csv('/home/ShardulB/BookBarn/ratings1.csv')
+ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv')
 # ratings.head()
 
 
@@ -60,7 +60,7 @@ ratings = pd.read_csv('/home/ShardulB/BookBarn/ratings1.csv')
 
 
 # load and check first entries of dataframe with information on books
-books = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/books.csv')
+books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv')
 # books.head()
 
 
@@ -298,40 +298,40 @@ trainset, testset = train_test_split(data, test_size=0.2, random_state=0)
 
 
 # define a cosine metric for item-item
-# sim_cos = {'name':'cosine', 'user_based':False}
+sim_cos = {'name':'cosine', 'user_based':False}
 
 
 # In[35]:
 
 
 # define and fit a basic KNN model with a cosine metric
-# basic = knns.KNNBasic(sim_options=sim_cos)
-# basic.fit(trainset)
+basic = knns.KNNBasic(sim_options=sim_cos)
+basic.fit(trainset)
 
 
 # In[36]:
 
 
 # make predictions
-# predictions = basic.test(testset)
+predictions = basic.test(testset)
 
 
 # In[37]:
 
 
 # check accuracy
-# accuracy.rmse(predictions)
+accuracy.rmse(predictions)
 
 
 # In[38]:
 
 
 # define fit and evaluate a KNN basic model with pearson correlation metric
-sim_pearson = {'name':'pearson', 'user_based':False}
-basic_pearson = knns.KNNBasic(sim_options=sim_pearson)
-basic_pearson.fit(trainset)
-predictions = basic_pearson.test(testset)
-accuracy.rmse(predictions)
+# sim_pearson = {'name':'pearson', 'user_based':False}
+# basic_pearson = knns.KNNBasic(sim_options=sim_pearson)
+# basic_pearson.fit(trainset)
+# predictions = basic_pearson.test(testset)
+# accuracy.rmse(predictions)
 
 
 # In[39]:
@@ -351,11 +351,11 @@ accuracy.rmse(predictions)
 
 
 # KNN baseline model, which takes into account a baseline rating (global mean)
-sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
-knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
-knn_baseline.fit(trainset)
-predictions = knn_baseline.test(testset)
-accuracy.rmse(predictions)
+# sim_pearson_baseline = {'name': 'pearson_baseline','user_based':False}#'shrinkage':50, 'min_support':5, 
+# knn_baseline = knns.KNNBaseline(sim_options=sim_pearson)
+# knn_baseline.fit(trainset)
+# predictions = knn_baseline.test(testset)
+# accuracy.rmse(predictions)
 
 
 # In[41]:
@@ -381,7 +381,7 @@ raw_ratings = data.raw_ratings
 # shuffle ratings
 random.shuffle(raw_ratings)
 
-# A = 90% of the data, B = 20% of the data
+# A = 80% of the data, B = 20% of the data
 threshold = int(.8 * len(raw_ratings))
 A_raw_ratings = raw_ratings[:threshold]
 B_raw_ratings = raw_ratings[threshold:]
@@ -398,8 +398,8 @@ data.raw_ratings = A_raw_ratings  # data is now the set A
 
 t = time()
 # define parameter grid and fit gridsearch on set A data
-param_grid = {'n_epochs': [5, 10], 'lr_all': [0.002, 0.005]}
-grid_search = GridSearchCV(SVD, param_grid, measures=['rmse'], cv=3)
+param_grid = {'n_epochs': [6, 10], 'lr_all': [0.002, 0.005]}
+grid_search = GridSearchCV(SVD, param_grid, measures=['rmse'], cv=2)
 grid_search.fit(data)
 
 # print(time()-t)
@@ -521,10 +521,10 @@ def get_recs(df=ratings, metadata=books, num_of_rec=3, num_of_ratings=10):
         # recommend_book_isbn=recommended_book['isbn']
         # print('Recommendation # ', idx, ': ')
         book_dict["book_id"]=int(recommended_book['book_id'].values[0])
-        book_dict["book_title"]=str(recommended_book['title'].values[0])
-        book_dict["book_author"]=str(recommended_book['authors'].values[0])
-        book_dict["isbn"]=str(recommended_book['isbn'].values[0])
-        book_dict["book_image"]=str(recommended_book['image_url'].values[0])
+        book_dict["book_title"]=str(recommended_book['original_title'].values[0])
+        book_dict["book_rating"]=str(recommended_book['average_rating'].values[0])
+        book_dict["cost"]=str(recommended_book['cost'].values[0])
+        book_dict["book_image"]=str(recommended_book['image_url'].values[0])    
         outer_dict[id_count]=book_dict
         book_dict={}
         num_of_rec-= 1

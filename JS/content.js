@@ -30,12 +30,64 @@ const displayBooks=(book_details)=>{
 		book_img.classList.add('card-img-top','py-2');
 		image_wrapper.appendChild(book_img);
 		book_card.appendChild(image_wrapper);
-
+		let rating='';
+		switch (parseInt(book_details[i].book_rating)){
+		    case 1:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 2:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 3:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 4:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 5:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    default:
+		        rating=`
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		}
 		book_details_div.innerHTML=
 		`
 			<h6 class="card-title">${book_details[i].book_title}</h6>
-			<p class="book-author card-text">By ${book_details[i].book_author}</p>
-			<p class="card-text">&#8377; 1 </p>
+			<div class="rating">
+			   ${rating}
+			</div>
+			<p class="card-text">&#8377; ${book_details[i].cost} </p>
 		`;
 		book_card.appendChild(book_details_div);
 		bookLink.appendChild(book_card);
@@ -60,7 +112,7 @@ const fetchBooks=async (bookTitle)=>{
     });
     //store response
     let data=await response.json();
-    //console.log(JSON.parse(data));
+    // console.log(JSON.parse(data));
 	document.getElementById('spinner').style.display='none';
 	displayBooks(JSON.parse(data));
 

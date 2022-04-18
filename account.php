@@ -156,7 +156,7 @@
                         }
                         while($row = mysqli_fetch_assoc($result)){
                             //echo $row['product_id'];
-                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['book_id']."";
+                            $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
                             $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
                             $row2 = mysqli_fetch_assoc($result2);
                             // while($row2 = mysqli_fetch_assoc($result2)){
@@ -201,7 +201,7 @@
                         }
                         while($row = mysqli_fetch_assoc($result)){
                             //echo $row['product_id'];
-                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['book_id']."";
+                            $sql2="SELECT * FROM books WHERE book_id=".$row['book_id']."";
                             $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
                             $row2 = mysqli_fetch_assoc($result2);
                             // while($row2 = mysqli_fetch_assoc($result2)){
@@ -246,7 +246,7 @@
                         }
                         while($row = mysqli_fetch_assoc($result)){
                             //echo $row['product_id'];
-                            $sql2="SELECT * FROM books_1 WHERE book_id=".$row['rent_book_id']."";
+                            $sql2="SELECT * FROM books WHERE book_id=".$row['rent_book_id']."";
                             $result2=mysqli_query($connection,$sql2) or die('Invalid query:');
                             $row2 = mysqli_fetch_assoc($result2);
                             // while($row2 = mysqli_fetch_assoc($result2)){

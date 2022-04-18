@@ -35,6 +35,8 @@
 	</style>
 </head>
 <body>
+	<h5>Books related to this title: </h5>
+
 	<!-- <div class="container my-5"> -->
 		<div class="spinner-border text-primary" id='spinner' role="status">
            <span class="visually-hidden">Loading...</span>

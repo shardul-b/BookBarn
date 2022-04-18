@@ -29,7 +29,7 @@
 				$rentResult=mysqli_query($connection,$rentQuery);
 				if(mysqli_num_rows($rentResult)>0){		
 					while($rentRow = mysqli_fetch_assoc($rentResult)){
-						$sql="SELECT * FROM books_1 WHERE book_id =".$rentRow['rent_book_id'];
+						$sql="SELECT * FROM books WHERE book_id =".$rentRow['rent_book_id'];
 					    $result=mysqli_query($connection,$sql);
 						if(mysqli_num_rows($result)>0){		
 							while($row = mysqli_fetch_assoc($result)){			

@@ -57,7 +57,7 @@
 	 </div>
 	 
 	 <?php 
-	 	$bookImageSql="SELECT `image_url` FROM `books_1` WHERE `book_id`='".$bookId."'";
+	 	$bookImageSql="SELECT `image_url` FROM `books` WHERE `book_id`='".$bookId."'";
 	 	if($trigger=="rent"){
 	 		$bookImageSql="SELECT `rent_book_image` FROM `rent` WHERE `rent_book_id`='".$bookId."'";
 	 	}
@@ -138,7 +138,7 @@ if (isset($_POST["book-submit"])) {
                 $target_dir = "Uploads/".$_SESSION['userid']."/books/".$fileNameNew;
                 $insertDocument='';
                 if($trigger=="sell"){
-                	$insertDocument="UPDATE `books_1` SET `image_url`='./".$target_dir."' WHERE `book_id`='".$bookId."'";	
+                	$insertDocument="UPDATE `books` SET `image_url`='./".$target_dir."' WHERE `book_id`='".$bookId."'";	
                 }elseif($trigger=="rent"){
                 	$insertDocument="UPDATE `rent` SET `rent_book_image`='./".$target_dir."' WHERE `rent_book_id`='".$bookId."'";
                 }
@@ -215,7 +215,7 @@ if (isset($_POST["book-submit"])) {
  ?>
 <?php
 	if($action=="delete" && $trigger=="sell"){
-		$deleteImage="UPDATE `books_1` SET `image_url`=NULL WHERE `book_id`='".$bookId."'";
+		$deleteImage="UPDATE `books` SET `image_url`=NULL WHERE `book_id`='".$bookId."'";
 		if (mysqli_query($connection, $deleteImage)) {
 			//Delete the file regardless of extension
 

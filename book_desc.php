@@ -36,7 +36,7 @@
   include('./PHP/connect.php');
 ?>
 <?php 
-    $sql = "SELECT * FROM books_1 where book_id=".$_GET['id']."";
+    $sql = "SELECT * FROM books where book_id=".$_GET['id']."";
     $rentSQL="SELECT * FROM rent where rent_book_id=".$_GET['id']."";
     $rating='';
     $bookCost='';
@@ -141,10 +141,35 @@
                 </div>
             </form>
                 <h3 class="mt-5">Book Details</h3>
-                <p><?php 
-                $text=$row['book_details'];
-                $text=preg_replace('/,/',"<br/>",$text,20);
-                echo $text;
+                <p>Full product name: <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['title'];
+              ?></p>
+                <p>Author(s): <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['authors'];
+              ?></p>
+                <p>ISBN: <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['isbn'];
+              ?></p>
+              <p>Language code: <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['language_code'];
+              ?></p>
+              <p>Category: <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['categories'];
+              ?></p>
+              <p>Original Publication Year: <?php 
+                // $text=$row['book_details'];
+                // $text=preg_replace('/,/',"<br/>",$text,20);
+                echo $row['original_publication_year'];
               ?></p>
             </div>
         </div>
@@ -209,9 +234,8 @@
     </div>
 
     <div class="container my-4">
-        <h5>Some Books You might like</h5>
-         
-         <iframe src="./content.php?title=<?php echo $row['original_title']; ?>" title="Recommended Books" ></iframe> 
+                 
+         <iframe src="./content.php?title=<?php echo $row['title']; ?>" title="Recommended Books" ></iframe> 
     </div>
     <?php 
 

@@ -95,7 +95,7 @@
                 </div>
             </div> -->
             <?php
-                $sql = "SELECT * FROM books_1 where `original_title`!= '' AND  average_rating>4  LIMIT 10";
+                $sql = "SELECT * FROM books where `original_title`!= '' AND  average_rating>4  LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -142,7 +142,12 @@
                                 <i class="fas fa-star" style="color: #ffcc33;"></i>';
                                 break;
                             default:
-                                $rating='';
+                                $rating='
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
                                 break;
                         }
                        echo'
@@ -174,14 +179,13 @@
 <!-- Recommended Books -->
 <?php 
     if(isset($_SESSION['userid'])){
-        //stopped here
         echo
         '
             <div class="products-section">
                 <h2 class="ms-3">Some Books you might like..</h2>
                 <hr>
                 <div class="container my-5">
-                    <iframe src="./collaborative.php" title="Recommended Books"></iframe>   
+                    <iframe src="./collaborative.php" loading="lazy" title="Recommended Books"></iframe>   
                 </div>
                 
             </div>
@@ -195,7 +199,89 @@
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
             <?php
-                $sql_fiction = "SELECT * FROM books_1 where genre = 'Fiction'";
+                $sql_fiction = "SELECT * FROM books where categories = 'Fiction'";
+              
+                if($result = mysqli_query($connection, $sql_fiction)){
+                    $rating='';
+                    //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                       switch (intval($row['average_rating'])){
+                            case 1:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 2:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 3:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 4:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 5:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            default:
+                                $rating='';
+                                break;
+                        }
+                       echo'
+                        <div class="col-lg-4 d-inline-block my-2">
+                            <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="ratio ratio-4x3" style="object-fit: cover;">
+                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"   alt="image">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">'.$row["original_title"].'</h5>
+                                        <div class="rating">
+                                         '.$rating.'
+                                      </div>
+                                      <p class="card-text">&#8377;'.$row["cost"].' </p>
+                                      <a href="index.php?id='.$row["book_id"].'" class="btn btn-primary d-block">Add To Cart</a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>';
+
+                    }
+                }
+            ?>
+        </div>
+    </div>
+</div>
+<div class="products-section">
+    <h2 class="ms-3">Trending Biography Books</h2>
+    <hr>
+    <div class="container my-5">
+        <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
+            <?php
+                $sql_fiction = "SELECT * FROM books where categories = 'Biography & Autobiography'";
               
                 if($result = mysqli_query($connection, $sql_fiction)){
                     $rating='';

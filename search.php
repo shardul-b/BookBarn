@@ -28,7 +28,7 @@
 	<?php
 			if(isset($_GET['value'])){
 				$searchterm=$_GET['value'];	
-				$sql="SELECT * FROM books_1 WHERE original_title LIKE '%$searchterm%' OR genre='$searchterm'";
+				$sql="SELECT * FROM books WHERE original_title LIKE '%$searchterm%' OR categories='$searchterm'";
 			    $result=mysqli_query($connection,$sql);
 				$rating='';
 				if(mysqli_num_rows($result)>0){		

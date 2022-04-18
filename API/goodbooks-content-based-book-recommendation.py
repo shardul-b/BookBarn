@@ -29,7 +29,7 @@ from sklearn.metrics.pairwise import linear_kernel
 # In[ ]:
 
 
-books = pd.read_csv('./books.csv', encoding = "ISO-8859-1")
+books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv', encoding = "ISO-8859-1")
 books.head()
 
 
@@ -48,36 +48,36 @@ books.columns
 # In[ ]:
 
 
-ratings = pd.read_csv('./ratings.csv', encoding = "ISO-8859-1")
+ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv', encoding = "ISO-8859-1")
 ratings.head()
 
 
 # In[ ]:
 
 
-book_tags = pd.read_csv('./book_tags.csv', encoding = "ISO-8859-1")
-book_tags.head()
+# book_tags = pd.read_csv('./book_tags.csv', encoding = "ISO-8859-1")
+# book_tags.head()
 
 
 # In[ ]:
 
 
-tags = pd.read_csv('./tags.csv')
-tags.tail()
+# tags = pd.read_csv('./tags.csv')
+# tags.tail()
 
 
 # In[ ]:
 
 
-tags_join_DF = pd.merge(book_tags, tags, left_on='tag_id', right_on='tag_id', how='inner')
-tags_join_DF.head()
+# tags_join_DF = pd.merge(book_tags, tags, left_on='tag_id', right_on='tag_id', how='inner')
+# tags_join_DF.head()
 
 
 # In[ ]:
 
 
-to_read = pd.read_csv('./to_read.csv')
-to_read.head()
+# to_read = pd.read_csv('./to_read.csv')
+# to_read.head()
 
 
 # **TfidfVectorizer** function from scikit-learn, which transforms** text to feature vectors** that can be used as input to estimator.
@@ -119,7 +119,7 @@ def authors_recommendations(title):
 
 # In[ ]:
 
-
+#author
 authors_recommendations('The Hobbit').head(20)
 
 
@@ -128,7 +128,7 @@ authors_recommendations('The Hobbit').head(20)
 # In[ ]:
 
 
-books_with_tags = pd.merge(books, tags_join_DF, left_on='book_id', right_on='goodreads_book_id', how='inner')
+# books_with_tags = pd.merge(books, tags_join_DF, left_on='book_id', right_on='goodreads_book_id', how='inner')
 
 
 # In[ ]:
@@ -141,7 +141,7 @@ books_with_tags = pd.merge(books, tags_join_DF, left_on='book_id', right_on='goo
 
 
 tf1 = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
-tfidf_matrix1 = tf1.fit_transform(books_with_tags['tag_name'].head(10000))
+tfidf_matrix1 = tf1.fit_transform(books['categories'].apply(lambda x: np.str_(x)))
 cosine_sim1 = linear_kernel(tfidf_matrix1, tfidf_matrix1)
 
 
@@ -170,7 +170,7 @@ def tags_recommendations(title):
 
 # In[ ]:
 
-
+# Genre Recommendation
 tags_recommendations('The Hobbit').head(20)
 
 
@@ -180,26 +180,26 @@ tags_recommendations('The Hobbit').head(20)
 # In[ ]:
 
 
-temp_df = books_with_tags.groupby('book_id')['tag_name'].apply(' '.join).reset_index()
-temp_df.head()
+# temp_df = books.groupby('book_id')
+# temp_df.head()
 
 
 # In[ ]:
 
 
-books = pd.merge(books, temp_df, left_on='book_id', right_on='book_id', how='inner')
+# books = pd.merge(books, temp_df, left_on='book_id', right_on='book_id', how='inner')
 
 
 # In[ ]:
 
 
-books.head()
+# books.head()
 
 
 # In[ ]:
 
 
-books['corpus'] = (pd.Series(books[['authors', 'tag_name']]
+books['corpus'] = (pd.Series(books[['authors', 'categories']]
                 .fillna('')
                 .values.tolist()
                 ).str.join(' '))
@@ -213,9 +213,16 @@ tfidf_matrix_corpus = tf_corpus.fit_transform(books['corpus'])
 cosine_sim_corpus = linear_kernel(tfidf_matrix_corpus, tfidf_matrix_corpus)
 
 # Build a 1-dimensional array with book titles
-titles = books['title']
+# titles = books['title']
+
+
+# Build a 1-dimensional array with book titles
+titles = books['original_title']
 images=books['image_url']
-authors=books['authors']
+# authors=books['authors']
+ratings=books['average_rating']
+cost=books['cost']
+
 
 indices = pd.Series(books.index, index=books['title'])
  
@@ -232,10 +239,11 @@ def corpus_recommendations(title):
         book_indices = [i[0] for i in sim_scores]
         for i in book_indices:
             num_id+=1
-            inner_obj["book_title"]=titles.iloc[i]
-            inner_obj["book_image"]=images.iloc[i]
-            inner_obj["book_author"]=authors.iloc[i]
-            inner_obj["book_id"]=i
+            inner_obj["book_title"]=str(titles.iloc[i])
+            inner_obj["book_image"]=str(images.iloc[i])
+            inner_obj["book_rating"]=str(ratings.iloc[i])
+            inner_obj["cost"]=str(cost.iloc[i])
+            inner_obj["book_id"]=str((i+1))
             # t=titles.iloc[book_indices]
             # i=images.iloc[book_indices]
             # a=authors.iloc[book_indices]

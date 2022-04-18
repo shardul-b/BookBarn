@@ -30,7 +30,7 @@
 		    
 		    while($notificationsRow = mysqli_fetch_assoc($notificationsResult)) {
 		    	//bookDetails
-		      $bookDetails="SELECT `image_url`,`original_title` FROM `books_1` WHERE `book_id`='".$notificationsRow['book_id']."'";
+		      $bookDetails="SELECT `image_url`,`original_title` FROM `books` WHERE `book_id`='".$notificationsRow['book_id']."'";
 		      $bookDetailsresult = mysqli_query($connection, $bookDetails);
 		      $bookDetailsRow=mysqli_fetch_assoc($bookDetailsresult);
 		      echo'
@@ -84,7 +84,7 @@
 		  	  
 		    while($requestnotificationsRow = mysqli_fetch_assoc($requestnotificationsResult)) {
 		    	//bookDetails
-		      $requestbookDetails="SELECT `image_url`,`original_title` FROM `books_1` WHERE `book_id`='".$requestnotificationsRow['book_id']."'";
+		      $requestbookDetails="SELECT `image_url`,`original_title` FROM `books` WHERE `book_id`='".$requestnotificationsRow['book_id']."'";
 		      $requestbookDetailsresult = mysqli_query($connection, $requestbookDetails);
 		      $requestbookDetailsRow=mysqli_fetch_assoc($requestbookDetailsresult);	
 		      echo'
@@ -132,7 +132,7 @@
 		  	  
 		    while($requestnotificationsRow = mysqli_fetch_assoc($requestnotificationsResult)) {
 		    	//bookDetails
-		      $requestbookDetails="SELECT `image_url`,`original_title` FROM `books_1` WHERE `book_id`='".$requestnotificationsRow['book_id']."'";
+		      $requestbookDetails="SELECT `image_url`,`original_title` FROM `books` WHERE `book_id`='".$requestnotificationsRow['book_id']."'";
 		      $requestbookDetailsresult = mysqli_query($connection, $requestbookDetails);
 		      $requestbookDetailsRow=mysqli_fetch_assoc($requestbookDetailsresult);	
 		      echo'

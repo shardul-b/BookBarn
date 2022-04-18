@@ -4,6 +4,22 @@ const books_ref=document.getElementById('books');
 const displayBooks=(book_details)=>{
 	document.getElementById('spinner').style.display='none';
 	for(let i in book_details){
+		let bookName,bookImage,bookCost,bookRating;
+		// let book_detailsSQL=
+		// `
+		// 	<?php
+		// 		$bookSQL="SELECT image_url,original_title,cost,average_rating from books WHERE book_id=${book_details[i].book_id}";
+		// 		$bookResult = mysqli_query($connection, $bookSQL));
+		// 		$bookRow = mysqli_fetch_array($bookResult, MYSQLI_ASSOC);
+		// 		echo "<script>
+		// 		bookName=".$bookRow['original_title'].";
+		// 		bookImage=".$bookRow['image_url'].";
+		// 		bookCost=".$bookRow['cost'].";
+		// 		bookRating=".$bookRow['average_rating'].";
+		// 		</script>";
+		// 	 ?>
+		// `;
+
 		let book_wrapper=creator('div');
 		book_wrapper.classList.add('book-wrapper','col-lg-4', 'd-inline-block', 'my-2');
 		//a tag
@@ -23,11 +39,64 @@ const displayBooks=(book_details)=>{
 		book_card.appendChild(image_wrapper);
 		
 		let book_details_div=creator('div');
+		let rating='';
+		switch (parseInt(book_details[i].book_rating)){
+		    case 1:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 2:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 3:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 4:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    case 5:
+		        rating=`
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>
+		        <i class="fas fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		    default:
+		        rating=`
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>
+		        <i class="far fa-star" style="color: #ffcc33;"></i>`;
+		        break;
+		}
 		book_details_div.innerHTML=
 		`
 			<h5 class="card-title">${book_details[i].book_title}</h5>
-
-			<p class="card-text">&#8377; 1 </p>
+			<div class="rating">
+			   ${rating}
+			</div>
+			<p class="card-text">&#8377; ${book_details[i].cost} </p>
 			<a href="index.php?id=${book_details[i].book_id}"  class="btn btn-primary d-block">Add To Cart</a> 
 		`;
 		book_card.appendChild(book_details_div);
