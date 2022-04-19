@@ -103,7 +103,7 @@
  
       $bookTitle= $_POST['book-title'];
       $bookISBN = $_POST['book-isbn'];
-      $bookDescription= $_POST['book-description'];
+      $bookDescription= mysqli_real_escape_string($connection,$_POST['book-description']);
       $bookPub= $_POST['book-pub'];
       $bookGenre= $_POST['book-category'];
       $bookAuthor= $_POST['book-author'];

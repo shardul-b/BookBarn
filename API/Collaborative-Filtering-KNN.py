@@ -24,15 +24,17 @@ import json
 import random
 from collections import defaultdict
 from time import time
-
+import mysql.connector as connection
 
 # Dataset: [GoodBooks10k](https://www.kaggle.com/alexanderfrosati/goodbooks-10k-updated)
 
 # In[2]:
 
-
+mydb = connection.connect(host="localhost", database = 'BookBarn',user="root", password="",use_pure=True)
+query = "Select * from ratings;"
+ratings = pd.read_sql(query,mydb)
 # load and check first entries of ratings dataset
-ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv')
+# ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv')
 # ratings.head()
 
 
@@ -58,9 +60,10 @@ ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv')
 
 # In[6]:
 
-
+query1 = "Select * from books;"
+books = pd.read_sql(query1,mydb)
 # load and check first entries of dataframe with information on books
-books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv')
+# books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv')
 # books.head()
 
 
@@ -140,7 +143,7 @@ plt.xlabel('Number of Ratings', fontsize=12)
 
 
 # get book ids for most ratings and least ratings
-# ratings.book_id.value_counts()
+ratings.book_id.value_counts()
 
 
 # In[16]:
@@ -225,25 +228,25 @@ books[['title', 'authors']].iloc[worst_rated.head(10).index]
 
 
 # check what are the top 10 books with the most 5 stars ratings
-most_5stars = books['ratings_5'].sort_values(ascending=False)
-most_5stars = books[['title','authors']].iloc[most_5stars.head(10).index]
-most_5stars
+# most_5stars = books['ratings_5'].sort_values(ascending=False)
+# most_5stars = books[['title','authors']].iloc[most_5stars.head(10).index]
+# most_5stars
 
 
 # In[27]:
 
 
 # check what are the top 10 books with the most 1 star ratings
-most_1star = books['ratings_1'].sort_values(ascending=False)
-most_1star = books[['title','authors']].iloc[most_1star.head(10).index]
-most_1star
+# most_1star = books['ratings_1'].sort_values(ascending=False)
+# most_1star = books[['title','authors']].iloc[most_1star.head(10).index]
+# most_1star
 
 
 # In[28]:
 
 
 # one book is in both top 10 most liked and most disliked - call it a polarizer!
-most_5stars.merge(most_1star)
+# most_5stars.merge(most_1star)
 
 
 # 
@@ -544,4 +547,4 @@ get_recs(num_of_rec=10, num_of_ratings=8)
 #[{'user_id': 847, 'book_id': 33, 'rating': '1'}, {'user_id': 847, 'book_id': 91, 'rating': '3'}, {'user_id': 847, 'book_id': 64, 'rating': '4'}]
 
 
-
+mydb.close()

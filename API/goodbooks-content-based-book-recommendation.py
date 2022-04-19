@@ -11,6 +11,7 @@ import sys
 # For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory
 
 import os
+import mysql.connector as connection
 import json
 # print(os.listdir("../input"))
 
@@ -28,8 +29,10 @@ from sklearn.metrics.pairwise import linear_kernel
 
 # In[ ]:
 
-
-books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv', encoding = "ISO-8859-1")
+mydb = connection.connect(host="localhost", database = 'BookBarn',user="root", password="",use_pure=True)
+query = "Select * from books;"
+books = pd.read_sql(query,mydb)
+# books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv', encoding = "ISO-8859-1")
 books.head()
 
 
@@ -47,8 +50,9 @@ books.columns
 
 # In[ ]:
 
-
-ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv', encoding = "ISO-8859-1")
+query1 = "Select * from ratings;"
+ratings = pd.read_sql(query1,mydb)
+# ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv', encoding = "ISO-8859-1")
 ratings.head()
 
 
@@ -120,7 +124,7 @@ def authors_recommendations(title):
 # In[ ]:
 
 #author
-authors_recommendations('The Hobbit').head(20)
+# authors_recommendations('The Hobbit').head(20)
 
 
 # Recommend books using the tags provided to the books.
@@ -159,7 +163,7 @@ titles1 = books['title']
 indices1 = pd.Series(books.index, index=books['title'])
 
 # Function that get book recommendations based on the cosine similarity score of books tags
-def tags_recommendations(title):
+def category_recommendations(title):
     idx = indices1[title]
     sim_scores = list(enumerate(cosine_sim1[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
@@ -171,7 +175,7 @@ def tags_recommendations(title):
 # In[ ]:
 
 # Genre Recommendation
-tags_recommendations('The Hobbit').head(20)
+# category_recommendations('The Hobbit').head(20)
 
 
 # Recommendation of books using the authors and tags attributes for better results.
@@ -254,7 +258,7 @@ def corpus_recommendations(title):
         print(json.dumps(outer_obj, indent=4))
         sys.stdout.flush()
     except:
-        outer_obj["error"]="No recommendations"
+        outer_obj["error"]="No recommendations available"
         print(json.dumps(outer_obj, indent=4))
         sys.stdout.flush()
         
@@ -262,6 +266,8 @@ def corpus_recommendations(title):
 bookTitle=sys.argv[1]
 corpus_recommendations(bookTitle)
 
+
+mydb.close()
 
 
 

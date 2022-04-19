@@ -1,8 +1,20 @@
 <?php 
-require('./PHP/header.php');
 
+require('./PHP/connect.php');
+session_start();
 require('./PHP/common_files.php');
   ?>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>BookBarn: About Us</title>
+  </head>
+  <body>
+    <?php 
+        require('./PHP/header.php');
+     ?>
 <div class="image-aboutus-banner"style="margin-top:70px">
    <div class="container">
     <div class="row">
@@ -40,3 +52,5 @@ require('./PHP/common_files.php');
       
     </div>
 
+  </body>
+  </html>

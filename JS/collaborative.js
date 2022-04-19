@@ -39,6 +39,7 @@ const displayBooks=(book_details)=>{
 		book_card.appendChild(image_wrapper);
 		
 		let book_details_div=creator('div');
+		book_details_div.classList.add('card-body');
 		let rating='';
 		switch (parseInt(book_details[i].book_rating)){
 		    case 1:

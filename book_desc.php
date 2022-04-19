@@ -22,7 +22,23 @@
         }
         iframe{
             width: 100%;
-            height: 25em;
+            height: 20em;
+        }
+        /*<style>*/
+        
+        .card{
+            width: 12rem;
+        }
+        .image-wrapper{
+            object-fit: cover;
+        }
+        img{
+            object-fit: contain;
+        }
+        .card-title{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
         }
     </style>
 </head>
@@ -236,6 +252,88 @@
     <div class="container my-4">
                  
          <iframe src="./content.php?title=<?php echo $row['title']; ?>" title="Recommended Books" ></iframe> 
+    </div>
+    <div class="container my-4">
+        <h5>Books in this Category:</h5>
+                
+        <div id="books" class="row d-block" style=" white-space: nowrap; overflow-x:auto;">
+            <?php
+                $othersql = "SELECT `book_id`,`image_url`,`original_title`,`cost`,`average_rating` FROM books where `categories` IN('".$row['categories']."')  LIMIT 10";
+                if($otherresult = mysqli_query($connection, $othersql)){
+                    //$row = mysqli_fetch_all($result, MYSQLI_NUM);
+                    while ($otherrow = mysqli_fetch_array($otherresult, MYSQLI_ASSOC)) {
+                        // print_r($row);
+                        switch (intval($otherrow['average_rating'])){
+                            case 1:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 2:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 3:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 4:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            case 5:
+                                $rating='
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>
+                                <i class="fas fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                            default:
+                                $rating='
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>
+                                <i class="far fa-star" style="color: #ffcc33;"></i>';
+                                break;
+                        }
+                        echo'
+            <div class="book-wrapper col-lg-2 d-inline-block ms-2">
+                <a href="book_desc.php?id='.$otherrow["book_id"].'" target="_blank" class="text-decoration-none link-dark">
+                    <div class="card">
+                        <div class="ratio ratio-4x3 image-wrapper">
+                            <img src="'.$otherrow["image_url"].'" class="card-img-top py-2">
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">'.$otherrow["original_title"].'</h6>
+                            <div class="rating">
+                               '.$rating.'
+                            </div>
+                            <p class="card-text">₹ '.$otherrow["cost"].'</p>
+                        </div>
+                    </div>
+                </a>
+            </div>';
+        }
+    }
+            ?>
+        </div>
     </div>
     <?php 
 

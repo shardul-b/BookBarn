@@ -27,7 +27,7 @@
 		img{
 			object-fit: contain;
 		}
-		.card-title,.book-author{
+		.card-title{
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis; 

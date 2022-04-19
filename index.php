@@ -32,7 +32,7 @@
       }
       iframe{
         width: 100%;
-        height: 22em;
+        height: 25em;
       }
     </style>
 </head>
@@ -95,7 +95,7 @@
                 </div>
             </div> -->
             <?php
-                $sql = "SELECT * FROM books where `original_title`!= '' AND  average_rating>4  LIMIT 10";
+                $sql = "SELECT `book_id`,`image_url`,`original_title`,`cost`,`average_rating` FROM books where `cost`>0 AND  average_rating>4 AND `categories` NOT IN('Fiction')  LIMIT 10";
                 if($result = mysqli_query($connection, $sql)){
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -155,7 +155,7 @@
                             <a href="book_desc.php?id='.$row["book_id"].'" class="text-decoration-none link-dark">
                                 <div class="card " style="width: 18rem;">
                                     <div class="ratio ratio-4x3" style="object-fit: cover;">
-                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"  alt="image">
+                                        <img src='.$row["image_url"].' class="card-img-top py-2" style="object-fit: contain;"  alt="image" loading="lazy">
                                     </div>
                                     <div class="card-body">
                                       <h5 class="card-title">'.$row["original_title"].'  </h5>
@@ -199,7 +199,7 @@
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
             <?php
-                $sql_fiction = "SELECT * FROM books where categories = 'Fiction'";
+                $sql_fiction = "SELECT `book_id`,`image_url`,`original_title`,`cost`,`average_rating` FROM books where categories = 'Fiction' AND average_rating>4 LIMIT 10";
               
                 if($result = mysqli_query($connection, $sql_fiction)){
                     $rating='';
@@ -281,9 +281,9 @@
     <div class="container my-5">
         <div class="row d-block featured" style=" white-space: nowrap; overflow-x:auto; ">
             <?php
-                $sql_fiction = "SELECT * FROM books where categories = 'Biography & Autobiography'";
+                $sql_biography = "SELECT `book_id`,`image_url`,`original_title`,`cost`,`average_rating` FROM books where categories IN ('Biography & Autobiography') AND average_rating>4 LIMIT 10";
               
-                if($result = mysqli_query($connection, $sql_fiction)){
+                if($result = mysqli_query($connection, $sql_biography)){
                     $rating='';
                     //$row = mysqli_fetch_all($result, MYSQLI_NUM);
                     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
