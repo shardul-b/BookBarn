@@ -22,7 +22,10 @@
 
 	 		// }
 	 	}elseif(isset($_GET['backTo'])){
-	 		echo "<script>location.href='./".$_GET['backTo']."'</script>";
+
+	 		echo "<script>
+		 		location.href='./".$_GET['backTo']."'
+	 		</script>";
 	 	}
 	  ?>
 </body>

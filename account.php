@@ -283,6 +283,7 @@
             $password=$_POST["password"];
             $sql="UPDATE customer SET username='$UserName',email='$email',phone='$phone',address='$Address',password='$password' WHERE  userid = ".$_SESSION['userid']."";
             $result = mysqli_query($connection,$sql) or die('Invalid query:'.mysqli_error($connection));
+            echo "<script> location.href='./redirect.php?backTo=account.php'; </script>";
         }
         if(isset($_POST['logout'])){
             unset($_SESSION['userid']);

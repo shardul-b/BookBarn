@@ -51,7 +51,7 @@
 
             <div class="form-group mb-4 col-sm-8">
               <label class="form-label" for="book-pub">Enter original publication year</label>
-              <textarea class="form-control" id="book-pub" rows="4" name="book-pub"></textarea>
+              <input type="text" class="form-control" id="book-pub" rows="4" name="book-pub"/>
             </div>
 
             <div class="form-group mb-4 col-sm-8">
@@ -106,7 +106,7 @@
 
             <div class="form-group mb-4 col-sm-8">
               <label class="form-label" for="book-pub">Enter original publication year</label>
-              <textarea class="form-control" id="book-pub" rows="4" name="book-pub"></textarea>
+              <input type="text" class="form-control" id="book-pub" rows="4" name="book-pub"/>
             </div>
 
             <div class="form-group mb-4 col-sm-8">
