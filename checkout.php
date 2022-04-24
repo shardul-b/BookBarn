@@ -192,7 +192,21 @@
 					$result = mysqli_query($connection,$insertOrder);
 					if($result){
 						if (mysqli_query($connection, $clearCart)) {
-						  echo "<script>alert('Success')</script>";
+						  $walletMoney="SELECT `funds` from `customer` WHERE `userid`='".$_SESSION['userid']."'";
+						  $walletMoneyResult = mysqli_query($connection, $walletMoney);
+						  $walletMoneyRow = mysqli_fetch_assoc($walletMoneyResult);
+				
+						 	if($walletMoneyRow['funds']>=$a[1]){
+						      //new balance
+						      $newBalance=$walletMoneyRow['funds']-$a[1];
+						      $updateBalance="UPDATE `customer` SET `funds`=".$newBalance." WHERE `userid`='".$_SESSION['userid']."'";
+						      
+						      if (mysqli_query($connection, $updateBalance)) {
+						  		echo "<script>location.href='./account.php';</script>";
+						  		}
+						 	}else{
+						 		echo"<script>alert('Insufficient Balance')</script>";
+						 	}
 						} else {
 						  echo "Error deleting record: " . mysqli_error($conn);
 						}
