@@ -97,11 +97,18 @@ const getBooks = async (searchQuery) => {
           //$bookCategories="${results[i].volumeInfo.categories}";
           //$bookGoogleDescription="${results[i].volumeInfo.description}";
         
-        
+      let updateDesc=results[i].volumeInfo.description;
+      updateDesc=updateDesc.replace(/[,']/g,' ');
       collapse.innerHTML=
       `
         Description:<p name="description" id='description'>${results[i].volumeInfo.description}</p>
-        <button type="submit" class="btn btn-success" onclick="updateDetails('${results[i].volumeInfo.title}','${results[i].volumeInfo.description}','${results[i].volumeInfo.categories}','${results[i].volumeInfo.authors}')" name="gen-book-submit">Choose Book Details</a>
+        <button type="submit" class="btn btn-success" onclick=
+        "updateDetails(
+        '${results[i].volumeInfo.title}',
+        '${updateDesc}',
+        '${results[i].volumeInfo.categories}',
+        '${results[i].volumeInfo.authors}'
+        )" name="gen-book-submit">Choose Book Details</button>
       `;
       //href="./rentform.php?manual=true&googlebooks=true"
       // if (results[i].saleInfo.saleability == "FOR_SALE") {
@@ -143,7 +150,6 @@ const updateDetails=(name,description,categories,authors)=>{
   }else{
     returnLink="./sellerform.php?manual=true&googlebooks=true";
   }
-  bookName=name;
   sessionStorage.setItem('bookName',name);
   sessionStorage.setItem('bookDescription',description);
   sessionStorage.setItem('bookCategory',categories);

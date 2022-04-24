@@ -8,6 +8,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Upload Book Image</title>
+	<style>
+		img{
+			max-width: 100%;
+		}
+	</style>
+	<script>
+		sessionStorage.clear();
+	</script>
 </head>
 <body>
 	<?php
@@ -76,7 +84,7 @@
  	  		 	  	  style="object-fit: contain;">
  	  		 	  	</div>
   	 	  		 	  <div class="d-flex justify-content-center">		
-  		 	  		 	  <a href="./index.php?newbook=success" class="ms-5 me-2 col-sm-6 btn btn-success">Confirm</a>
+  		 	  		 	  <a href="./index.php?newbook=success" class=" me-2 col-sm-6 btn btn-success">Confirm</a>
   		 	  		 	  <a href="./uploadBookImage.php?action=delete&id='.$bookId.'&trigger=sell" class="col-sm-6 btn btn-danger">Delete</a>  
   		  		 	  </div>
  	  		 	  </div>
