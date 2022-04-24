@@ -31,9 +31,9 @@
     <?php 
       if(isset($_GET['search'])){
           // For manual input
-          $sell=true;
+          $rent=false;
           require './book-finder.php';
-      }else if(isset($_GET['manual'])){
+      }else if(isset($_GET['manual']) && !isset($_GET['googlebooks'])){
         echo'
           <form method="post">
             <div class="form-group  mb-4 col-sm-8">
@@ -62,6 +62,61 @@
             <div class="form-group mb-4 col-sm-8">
               <label for="book-author" >Enter authors</label>
               <input type="text" class="form-control" name="book-author" id="book-author">  
+            </div>
+            <div class="form-group mb-4 col-sm-8">
+              <label for="book-lang">Language Code</label>
+              <input type="text" class="form-control" id="book-lang" name="book-lang">     
+            </div>
+
+            <!--<div class="form-group mb-4 col-sm-8">
+              <label for="book-seller">Seller Name</label>
+              <input type="text" class="form-control" id="book-seller" name="book-seller">     
+            </div>-->
+            
+            <div class="form-group mb-4 col-sm-4">
+              <label for="book-cost">Cost</label>
+              <input type="number" class="form-control" id="book-cost" name="book-cost" min="0.0" step="0.01" placeholder="0.0">     
+            </div>
+
+            <div class="form-group mb-4 col-sm-4">
+              <label for="book-quantity">Quantity of books</label>
+              <input type="number" class="form-control" id="book-quantity" name="book-quantity">     
+            </div>            
+
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary" name="sell-details-submit">Submit</button>
+            </div> 
+         </form>
+        ';
+      }else if(isset($_GET['manual']) && isset($_GET['googlebooks'])){
+        echo'
+          <form method="post">
+            <div class="form-group  mb-4 col-sm-8">
+              <label for="book-title" >Enter Book title</label>  
+              <input type="text" class="form-control" name="book-title" id="book-google-title" >       
+            </div>
+            <div class="form-group mb-4 col-sm-8">
+              <label for="book-isbn" >Enter book ISBN</label>
+              <input type="text" class="form-control" name="book-isbn" id="book-isbn" >     
+            </div>
+            <div class="form-group mb-4 col-sm-8">
+              <label class="form-label" for="book-description">Description</label>
+              <textarea class="form-control" id="book-google-description" rows="4" name="book-description"></textarea>
+            </div>
+
+            <div class="form-group mb-4 col-sm-8">
+              <label class="form-label" for="book-pub">Enter original publication year</label>
+              <textarea class="form-control" id="book-pub" rows="4" name="book-pub"></textarea>
+            </div>
+
+            <div class="form-group mb-4 col-sm-8">
+              <label for="book-category" >Enter Category/Genre</label>
+              <input type="text" class="form-control" name="book-category" id="book-google-category">  
+            </div>
+
+            <div class="form-group mb-4 col-sm-8">
+              <label for="book-author" >Enter authors</label>
+              <input type="text" class="form-control" name="book-author" id="book-google-author">  
             </div>
             <div class="form-group mb-4 col-sm-8">
               <label for="book-lang">Language Code</label>
@@ -161,6 +216,16 @@
   <?php
     // require './PHP/footer.php';
   ?>
+  <script type="text/javascript">
+    let url=location.href;
+    url=(url.includes('&'))?url.split('&')[1].split("=")[1]:'';
+    if(url){
+      document.getElementById("book-google-title").value=sessionStorage.getItem('bookName');
+      document.getElementById("book-google-description").innerHTML=sessionStorage.getItem('bookDescription');
+      document.getElementById("book-google-category").value=sessionStorage.getItem('bookCategory');
+      document.getElementById("book-google-author").value=sessionStorage.getItem('bookAuthor');
+    }
+  </script>
 </body>
 </html>
 

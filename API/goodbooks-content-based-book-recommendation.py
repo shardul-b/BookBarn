@@ -33,19 +33,19 @@ mydb = connection.connect(host="localhost", database = 'BookBarn',user="root", p
 query = "Select * from books;"
 books = pd.read_sql(query,mydb)
 # books = pd.read_csv('/home/ShardulB/BookBarn/books(final-for db).csv', encoding = "ISO-8859-1")
-books.head()
+# books.head()
 
 
 # In[ ]:
 
 
-books.shape
+# books.shape
 
 
 # In[ ]:
 
 
-books.columns
+# books.columns
 
 
 # In[ ]:
@@ -53,7 +53,7 @@ books.columns
 query1 = "Select * from ratings;"
 ratings = pd.read_sql(query1,mydb)
 # ratings = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/ratings(for db).csv', encoding = "ISO-8859-1")
-ratings.head()
+# ratings.head()s
 
 
 # In[ ]:

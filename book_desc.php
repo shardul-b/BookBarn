@@ -215,9 +215,9 @@
                             <img src="'.$rent_row["rent_book_image"].'" class="" alt="Image" style=" max-width:8em; ">
                         </div>
                         <div class="col-md-8 col-7 border border-default">
-                            <div class="card border-0">
-                                <div class="card-body">
-                                    <h5 class="card-title">'.$row["original_title"].'</h5>
+                            <div class="card border-0 w-100">
+                                <div class="card-body ">
+                                    <h5>'.$row["original_title"].'</h5>
                                         <p>Rented By: '.$user_row["username"].'</p>
                                     <div class="period">
                                         <p>'.$rent_row["period"].' days</p>

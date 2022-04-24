@@ -13,24 +13,24 @@ const checker = (book_object) => {
     Name
     Description
     Genre/Categories
-    Price
-    ISBN-13  
-    published date
+    Price(remove)
+    ISBN-13 (remove) 
+    published year (remove)
   */
   let flag = 0;
   if (book_object.title && book_object.authors && book_object.imageLinks && book_object.description && book_object.categories && book_object.publisher) {
     // if (book_object.categories) {
     // if (book_object.publisher && book_object.language) {
-    book_object.industryIdentifiers.map((values) => {
-      if (values.type == "ISBN_13") {
-        flag = 1;
-      }
-    });
+    // book_object.industryIdentifiers.map((values) => {
+      // if (values.type == "ISBN_13") {
+    flag = 1;
+      // }
+    // });
   }
   return flag == 1;
 }
-
 const getBooks = async (searchQuery) => {
+  outputDiv.innerHTML='';
   let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}`)
   var data = await response.json();
   let results = data.items;
@@ -40,14 +40,14 @@ const getBooks = async (searchQuery) => {
     let checks = await checker(results[i].volumeInfo)
     //for undefined/null this would return false by default
     if (checks) {
-      console.log(results[i].volumeInfo)
+      // console.log(results[i].volumeInfo)
       // if (results[i].volumeInfo.imageLinks) {
       //Details Div
       let div = document.createElement('div');
       div.classList.add('details-div');
       // Image container
       let imageContainer = document.createElement('div');
-      imageContainer.classList.add('image-div');
+      imageContainer.classList.add('image-div','mt-4','mb-2');
       imageContainer.innerHTML =
         `
         <img src='${results[i].volumeInfo.imageLinks.thumbnail.replace(/zoom\=[0-9]\&/, '')}' class='book-image' id='book-image${i}'/>
@@ -61,8 +61,13 @@ const getBooks = async (searchQuery) => {
       // Book authors
       let authors = document.createElement('div');
       authors.classList.add('book-temp-author');
-      authors.innerHTML = results[i].volumeInfo.authors;
+      authors.innerHTML = `Authors: ${results[i].volumeInfo.authors}`;
       div.appendChild(authors);
+      //Book Categories
+      let categories = document.createElement('div');
+      categories.classList.add('book-temp-category');
+      categories.innerHTML = `Categories: ${results[i].volumeInfo.categories}`;
+      div.appendChild(categories);
       // View All details button
       let moreButton=document.createElement('button');
       moreButton.classList.add('btn', 'btn-primary')
@@ -77,29 +82,28 @@ const getBooks = async (searchQuery) => {
       collapse.classList.add('collapse');
       collapse.setAttribute('id',`collapseDetails${i}`);
       
-      //ISBN value
-      let isbn_value=results[i].volumeInfo.industryIdentifiers.map(
-        (values)=>{
-          if(values.type=="ISBN_13"){
-            return values.identifier
-          }
-        })
+      // //ISBN value
+      // let isbn_value=results[i].volumeInfo.industryIdentifiers.map(
+      //   (values)=>{
+      //     if(values.type=="ISBN_13"){
+      //       return values.identifier
+      //     }
+      //   })
+      //let phpString='<?php $_SESSION["bookName"]="'+results[i].volumeInfo.title+'";?>';
+          //$bookImageLink="${results[i].volumeInfo.imageLinks.thumbnail.replace(/zoom\=[0-9]\&/, '')}";
+      // bookName=results[i].volumeInfo.title;
+
+          //$bookAuthors="${results[i].volumeInfo.authors}";
+          //$bookCategories="${results[i].volumeInfo.categories}";
+          //$bookGoogleDescription="${results[i].volumeInfo.description}";
+        
+        
       collapse.innerHTML=
       `
-        <form method="post">
-          <input type="hidden" value="${results[i].volumeInfo.imageLinks.thumbnail.replace(/zoom\=[0-9]\&/, '')}" name="gen-book-image"/>
-          <input type="hidden" value="${results[i].volumeInfo.title}" name="gen-book-title"/>
-          <input type="hidden" value="${results[i].volumeInfo.authors}" name="gen-book-authors"/>
-          Description:<p name="description" id='description'>${results[i].volumeInfo.description}</p>
-          <input type="hidden" value="${results[i].volumeInfo.description}" name="gen-book-description"/>
-          ISBN:<span name="isbn" id="isbn">${isbn_value}</span>
-          <input type="hidden" value="${isbn_value}" name="gen-book-isbn"/>
-          <button onsubmit="newPage()" type="submit" class="btn btn-success" name="gen-book-submit">Choose Book Details</button>
-        </form>
-        
-        
-        <!--<p name="book-details" id="book-details"></p>-->
+        Description:<p name="description" id='description'>${results[i].volumeInfo.description}</p>
+        <button type="submit" class="btn btn-success" onclick="updateDetails('${results[i].volumeInfo.title}','${results[i].volumeInfo.description}','${results[i].volumeInfo.categories}','${results[i].volumeInfo.authors}')" name="gen-book-submit">Choose Book Details</a>
       `;
+      //href="./rentform.php?manual=true&googlebooks=true"
       // if (results[i].saleInfo.saleability == "FOR_SALE") {
       //   div.innerHTML = "Price: " + results[i].saleInfo.listPrice.amount + "\n";
       //   // console.log(results[i].saleInfo.listPrice.amount);  
@@ -124,10 +128,25 @@ const getBooks = async (searchQuery) => {
   // })
   // .catch(err=>console.log(err))
 }
-const newPage=()=>{
+/*const newPage=()=>{
  //URL parameter
  let url=location.href;
  url=url.split('?')[1].split("=")[1];
  console.log(url)
  location.href=`./${url}`; 
-};
+};*/
+const updateDetails=(name,description,categories,authors)=>{
+  let urlLink=location.href;
+  let returnLink='';
+  if(urlLink.includes('rent')){
+    returnLink="./rentform.php?manual=true&googlebooks=true";
+  }else{
+    returnLink="./sellerform.php?manual=true&googlebooks=true";
+  }
+  bookName=name;
+  sessionStorage.setItem('bookName',name);
+  sessionStorage.setItem('bookDescription',description);
+  sessionStorage.setItem('bookCategory',categories);
+  sessionStorage.setItem('bookAuthor',authors);
+  location.href=returnLink;
+}

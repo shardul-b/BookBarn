@@ -13,9 +13,9 @@
 		}
 		echo 
 		'
-			<script src="./API/api-key.js"></script>
-			<style>
-			.callout {
+		<script src="./API/api-key.js"></script>	
+		<style>
+		.callout {
 		  padding: 20px;
 		  margin: 20px 0;
 		  border: 1px solid #eee;
@@ -85,12 +85,13 @@
 		  color: #29527a;
 		}
 		.image-div{
+			object-fit:contain;
 			width:6rem;
 		}
 		img{
 			max-width:100%;
 		}
-			</style>
+		</style>
 		<div class="container-fluid">
 			<h2>Welcome to our Book Finder</h2>
 			<p class="lead">We will help you to fill book details for your book. All you have to do is search for your book below, select a book from results and the details would be filled out for you!</p>

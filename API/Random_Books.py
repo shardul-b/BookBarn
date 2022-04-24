@@ -8,11 +8,13 @@ import pandas as pd
 pd.set_option('display.max_columns', 25)
 import numpy as np
 import json
-
+import mysql.connector as connection
 # In[2]:
 
-
-books = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/books.csv')
+mydb = connection.connect(host="localhost", database = 'BookBarn',user="root", password="",use_pure=True)
+query = "Select * from books;"
+books = pd.read_sql(query,mydb)
+# books = pd.read_csv('/home/ShardulB/BookBarn/GoodBooks/books.csv')
 books.head()
 
 
@@ -26,7 +28,7 @@ while num_of_ratings > 0:
     book = books.iloc[books['ratings_count'].sort_values(ascending=False).head(100).index].sample(
         1, random_state=None)
     inner_dict["book_image"]=book[['image_url']].values[0][0]
-    inner_dict["book_title"]=book[['title']].values[0][0]
+    inner_dict["book_title"]=book[['original_title']].values[0][0]
     inner_dict["book_id"]=str(book[['book_id']].values[0][0])
     inner_dict["book_author"]=book[['authors']].values[0][0]
     #print(inner_dict)
