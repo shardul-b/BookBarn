@@ -44,17 +44,16 @@ Note: If you face username and password issues please change the username and pa
 - Product description page
 - Login/Signup
 - Account page with previous order info
-- Wallet (Pending)
-- Book Recommendation
-- Rental Form (Pending)
-- Seller Form (Pending)
-- Blog (Pending)
+- Wallet  
+- Book Recommendation      
+- Rental Form (with Google Books API support)    
+- Seller Form (with Google Books API support)       
 
 **Image credits:**  
 [Google Books](https://books.google.com/)
 
 **Dataset used:**
-[Goodbooks 10k](https://)
+[Goodbooks 10k](https://github.com/zygmuntz/goodbooks-10k)
 
 **Icons from:**  
 [FontAwesome](https://fontawesome.com/icons)  
